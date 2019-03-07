@@ -1,0 +1,9 @@
+C:\Users\Administrator\Desktop\BlogDemo\BlogDemo.Core\bin\Debug\netcoreapp2.1\BlogDemo.Core.deps.json
+C:\Users\Administrator\Desktop\BlogDemo\BlogDemo.Core\bin\Debug\netcoreapp2.1\BlogDemo.Core.dll
+C:\Users\Administrator\Desktop\BlogDemo\BlogDemo.Core\bin\Debug\netcoreapp2.1\BlogDemo.Core.pdb
+C:\Users\Administrator\Desktop\BlogDemo\BlogDemo.Core\obj\Debug\netcoreapp2.1\BlogDemo.Core.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Desktop\BlogDemo\BlogDemo.Core\obj\Debug\netcoreapp2.1\BlogDemo.Core.AssemblyInfoInputs.cache
+C:\Users\Administrator\Desktop\BlogDemo\BlogDemo.Core\obj\Debug\netcoreapp2.1\BlogDemo.Core.AssemblyInfo.cs
+C:\Users\Administrator\Desktop\BlogDemo\BlogDemo.Core\obj\Debug\netcoreapp2.1\BlogDemo.Core.dll
+C:\Users\Administrator\Desktop\BlogDemo\BlogDemo.Core\obj\Debug\netcoreapp2.1\BlogDemo.Core.pdb
+C:\Users\Administrator\Desktop\BlogDemo\BlogDemo.Core\obj\Debug\netcoreapp2.1\BlogDemo.Core.csprojAssemblyReference.cache

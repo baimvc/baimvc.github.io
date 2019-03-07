@@ -1,0 +1,12 @@
+C:\Users\Administrator\Desktop\BlogDemo\BlogDemo.Infrastructure\bin\Debug\netcoreapp2.1\BlogDemo.Infrastructure.deps.json
+C:\Users\Administrator\Desktop\BlogDemo\BlogDemo.Infrastructure\bin\Debug\netcoreapp2.1\BlogDemo.Infrastructure.dll
+C:\Users\Administrator\Desktop\BlogDemo\BlogDemo.Infrastructure\bin\Debug\netcoreapp2.1\BlogDemo.Infrastructure.pdb
+C:\Users\Administrator\Desktop\BlogDemo\BlogDemo.Infrastructure\bin\Debug\netcoreapp2.1\BlogDemo.Core.dll
+C:\Users\Administrator\Desktop\BlogDemo\BlogDemo.Infrastructure\bin\Debug\netcoreapp2.1\BlogDemo.Core.pdb
+C:\Users\Administrator\Desktop\BlogDemo\BlogDemo.Infrastructure\obj\Debug\netcoreapp2.1\BlogDemo.Infrastructure.csprojAssemblyReference.cache
+C:\Users\Administrator\Desktop\BlogDemo\BlogDemo.Infrastructure\obj\Debug\netcoreapp2.1\BlogDemo.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Desktop\BlogDemo\BlogDemo.Infrastructure\obj\Debug\netcoreapp2.1\BlogDemo.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\Administrator\Desktop\BlogDemo\BlogDemo.Infrastructure\obj\Debug\netcoreapp2.1\BlogDemo.Infrastructure.AssemblyInfo.cs
+C:\Users\Administrator\Desktop\BlogDemo\BlogDemo.Infrastructure\obj\Debug\netcoreapp2.1\BlogDemo.Infrastructure.csproj.CopyComplete
+C:\Users\Administrator\Desktop\BlogDemo\BlogDemo.Infrastructure\obj\Debug\netcoreapp2.1\BlogDemo.Infrastructure.dll
+C:\Users\Administrator\Desktop\BlogDemo\BlogDemo.Infrastructure\obj\Debug\netcoreapp2.1\BlogDemo.Infrastructure.pdb

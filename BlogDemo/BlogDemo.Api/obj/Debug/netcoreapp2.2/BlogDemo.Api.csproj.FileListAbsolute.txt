@@ -1,0 +1,16 @@
+C:\Users\Administrator\Desktop\BlogDemo\BlogDemo.Api\bin\Debug\netcoreapp2.2\BlogDemo.Api.deps.json
+C:\Users\Administrator\Desktop\BlogDemo\BlogDemo.Api\bin\Debug\netcoreapp2.2\BlogDemo.Api.runtimeconfig.json
+C:\Users\Administrator\Desktop\BlogDemo\BlogDemo.Api\bin\Debug\netcoreapp2.2\BlogDemo.Api.runtimeconfig.dev.json
+C:\Users\Administrator\Desktop\BlogDemo\BlogDemo.Api\bin\Debug\netcoreapp2.2\BlogDemo.Api.dll
+C:\Users\Administrator\Desktop\BlogDemo\BlogDemo.Api\bin\Debug\netcoreapp2.2\BlogDemo.Core.dll
+C:\Users\Administrator\Desktop\BlogDemo\BlogDemo.Api\bin\Debug\netcoreapp2.2\BlogDemo.Infrastructure.dll
+C:\Users\Administrator\Desktop\BlogDemo\BlogDemo.Api\bin\Debug\netcoreapp2.2\BlogDemo.Core.pdb
+C:\Users\Administrator\Desktop\BlogDemo\BlogDemo.Api\bin\Debug\netcoreapp2.2\BlogDemo.Infrastructure.pdb
+C:\Users\Administrator\Desktop\BlogDemo\BlogDemo.Api\obj\Debug\netcoreapp2.2\BlogDemo.Api.csprojAssemblyReference.cache
+C:\Users\Administrator\Desktop\BlogDemo\BlogDemo.Api\obj\Debug\netcoreapp2.2\BlogDemo.Api.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Desktop\BlogDemo\BlogDemo.Api\obj\Debug\netcoreapp2.2\BlogDemo.Api.RazorAssemblyInfo.cache
+C:\Users\Administrator\Desktop\BlogDemo\BlogDemo.Api\obj\Debug\netcoreapp2.2\BlogDemo.Api.RazorAssemblyInfo.cs
+C:\Users\Administrator\Desktop\BlogDemo\BlogDemo.Api\obj\Debug\netcoreapp2.2\BlogDemo.Api.AssemblyInfoInputs.cache
+C:\Users\Administrator\Desktop\BlogDemo\BlogDemo.Api\obj\Debug\netcoreapp2.2\BlogDemo.Api.AssemblyInfo.cs
+C:\Users\Administrator\Desktop\BlogDemo\BlogDemo.Api\obj\Debug\netcoreapp2.2\BlogDemo.Api.RazorTargetAssemblyInfo.cache
+C:\Users\Administrator\Desktop\BlogDemo\BlogDemo.Api\obj\Debug\netcoreapp2.2\BlogDemo.Api.csproj.CopyComplete
