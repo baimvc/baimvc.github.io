@@ -10,3 +10,15 @@ C:\Users\Administrator\Desktop\BlogDemo\BlogDemo.Infrastructure\obj\Debug\netcor
 C:\Users\Administrator\Desktop\BlogDemo\BlogDemo.Infrastructure\obj\Debug\netcoreapp2.1\BlogDemo.Infrastructure.csproj.CopyComplete
 C:\Users\Administrator\Desktop\BlogDemo\BlogDemo.Infrastructure\obj\Debug\netcoreapp2.1\BlogDemo.Infrastructure.dll
 C:\Users\Administrator\Desktop\BlogDemo\BlogDemo.Infrastructure\obj\Debug\netcoreapp2.1\BlogDemo.Infrastructure.pdb
+D:\MyGit\ByTest\baimvc.githup.io\BlogDemo\BlogDemo.Infrastructure\bin\Debug\netcoreapp2.1\BlogDemo.Infrastructure.deps.json
+D:\MyGit\ByTest\baimvc.githup.io\BlogDemo\BlogDemo.Infrastructure\bin\Debug\netcoreapp2.1\BlogDemo.Infrastructure.dll
+D:\MyGit\ByTest\baimvc.githup.io\BlogDemo\BlogDemo.Infrastructure\bin\Debug\netcoreapp2.1\BlogDemo.Infrastructure.pdb
+D:\MyGit\ByTest\baimvc.githup.io\BlogDemo\BlogDemo.Infrastructure\bin\Debug\netcoreapp2.1\BlogDemo.Core.dll
+D:\MyGit\ByTest\baimvc.githup.io\BlogDemo\BlogDemo.Infrastructure\bin\Debug\netcoreapp2.1\BlogDemo.Core.pdb
+D:\MyGit\ByTest\baimvc.githup.io\BlogDemo\BlogDemo.Infrastructure\obj\Debug\netcoreapp2.1\BlogDemo.Infrastructure.csprojAssemblyReference.cache
+D:\MyGit\ByTest\baimvc.githup.io\BlogDemo\BlogDemo.Infrastructure\obj\Debug\netcoreapp2.1\BlogDemo.Infrastructure.csproj.CoreCompileInputs.cache
+D:\MyGit\ByTest\baimvc.githup.io\BlogDemo\BlogDemo.Infrastructure\obj\Debug\netcoreapp2.1\BlogDemo.Infrastructure.AssemblyInfoInputs.cache
+D:\MyGit\ByTest\baimvc.githup.io\BlogDemo\BlogDemo.Infrastructure\obj\Debug\netcoreapp2.1\BlogDemo.Infrastructure.AssemblyInfo.cs
+D:\MyGit\ByTest\baimvc.githup.io\BlogDemo\BlogDemo.Infrastructure\obj\Debug\netcoreapp2.1\BlogDemo.Infrastructure.csproj.CopyComplete
+D:\MyGit\ByTest\baimvc.githup.io\BlogDemo\BlogDemo.Infrastructure\obj\Debug\netcoreapp2.1\BlogDemo.Infrastructure.dll
+D:\MyGit\ByTest\baimvc.githup.io\BlogDemo\BlogDemo.Infrastructure\obj\Debug\netcoreapp2.1\BlogDemo.Infrastructure.pdb

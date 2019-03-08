@@ -688,11 +688,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Administrator\\Desktop\\BlogDemo\\BlogDemo.Core\\BlogDemo.Core.csproj",
+      "projectUniqueName": "D:\\MyGit\\ByTest\\baimvc.githup.io\\BlogDemo\\BlogDemo.Core\\BlogDemo.Core.csproj",
       "projectName": "BlogDemo.Core",
-      "projectPath": "C:\\Users\\Administrator\\Desktop\\BlogDemo\\BlogDemo.Core\\BlogDemo.Core.csproj",
+      "projectPath": "D:\\MyGit\\ByTest\\baimvc.githup.io\\BlogDemo\\BlogDemo.Core\\BlogDemo.Core.csproj",
       "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Administrator\\Desktop\\BlogDemo\\BlogDemo.Core\\obj\\",
+      "outputPath": "D:\\MyGit\\ByTest\\baimvc.githup.io\\BlogDemo\\BlogDemo.Core\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
