@@ -3,13 +3,16 @@
     "BlogDemo.Api": {
       "commandName": "Project",
       "launchBrowser": true, //默认打开浏览器
-      "launchUrl": "http://localhost:5000/api/Home", //默认地址
+      //"launchUrl": "http://localhost:5001/api/Home", //默认地址
       "applicationUrl": "https://localhost:5001;http://localhost:5000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     }
 
-  }
+  },
+ 
+   "DefaultConnection": "Data Source=.;Initial Catalog=DBNews;User ID=sa;Password=123"
+  
 
 }

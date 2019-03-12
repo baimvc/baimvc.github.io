@@ -1,0 +1,9 @@
+D:\MyGit\ByTest\baimvc.githup.io\BlogDemo\BlogDemo.Core\bin\Debug\netcoreapp2.2\BlogDemo.Core.deps.json
+D:\MyGit\ByTest\baimvc.githup.io\BlogDemo\BlogDemo.Core\bin\Debug\netcoreapp2.2\BlogDemo.Core.dll
+D:\MyGit\ByTest\baimvc.githup.io\BlogDemo\BlogDemo.Core\bin\Debug\netcoreapp2.2\BlogDemo.Core.pdb
+D:\MyGit\ByTest\baimvc.githup.io\BlogDemo\BlogDemo.Core\obj\Debug\netcoreapp2.2\BlogDemo.Core.csprojAssemblyReference.cache
+D:\MyGit\ByTest\baimvc.githup.io\BlogDemo\BlogDemo.Core\obj\Debug\netcoreapp2.2\BlogDemo.Core.csproj.CoreCompileInputs.cache
+D:\MyGit\ByTest\baimvc.githup.io\BlogDemo\BlogDemo.Core\obj\Debug\netcoreapp2.2\BlogDemo.Core.AssemblyInfoInputs.cache
+D:\MyGit\ByTest\baimvc.githup.io\BlogDemo\BlogDemo.Core\obj\Debug\netcoreapp2.2\BlogDemo.Core.AssemblyInfo.cs
+D:\MyGit\ByTest\baimvc.githup.io\BlogDemo\BlogDemo.Core\obj\Debug\netcoreapp2.2\BlogDemo.Core.dll
+D:\MyGit\ByTest\baimvc.githup.io\BlogDemo\BlogDemo.Core\obj\Debug\netcoreapp2.2\BlogDemo.Core.pdb

@@ -38,7 +38,7 @@ namespace BlogDemo.Core
     /// <summary>
     /// Guid 类型主键实体基类
     /// </summary>
-    public abstract class EntityBase : EntityBase<Guid>
+    public abstract class EntityBase : EntityBase<int>
     { }
 
     #endregion

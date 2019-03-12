@@ -3,7 +3,6 @@ using Dapper;
 
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
-using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -93,7 +92,7 @@ namespace BlogDemo.Infrastructure.Dapper
                     connection = new SqlConnection(_connectionString);
                     break;
                 case DataBaseTypeEnum.MySql:
-                    connection = new MySqlConnection(_connectionString);
+                   // connection = new MySqlConnection(_connectionString);
                     break;
             };
             return connection;
