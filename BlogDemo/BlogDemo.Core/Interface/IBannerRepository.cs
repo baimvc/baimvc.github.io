@@ -10,7 +10,8 @@ namespace BlogDemo.Core.Interface
 {
     public interface IBannerRepository
     {
-        Task<List<Banner>> GetALLBanners();
+        Task<PaginatedList<Banner>> GetALLBanners(BannerQueryParameters bannerQueryParameters);
         void AddBanner(PostBanner banner);
+        Task<Banner> GetPostByIdAsync(int id);
     }
 }

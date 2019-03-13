@@ -1,4 +1,5 @@
 ﻿using BlogDemo.Core.Entities;
+using BlogDemo.Infrastructure.Database.EntityConfigurations;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,11 @@ namespace BlogDemo.Infrastructure.Database
 
         }
 
-
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfiguration(new BannerConfiguration());
+        }
 
         public DbSet<Banner> Banner { get; set; }
         public DbSet<News> News { get; set; }

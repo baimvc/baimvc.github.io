@@ -5,6 +5,7 @@ using BlogDemo.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -24,17 +25,35 @@ namespace BlogDemo.Infrastructure.Imp
         /// <param name="banner"></param>
         public void AddBanner(PostBanner banner)
         {
-             _db.Add(banner);
+            var bannerModel = new Banner() {  Image = banner.Image, Url = banner.Url, AddTime = banner.AddTime, Remark = banner.Remark};
+             _db.Banner.Add(bannerModel);
         }
 
         /// <summary>
         /// 获取所有主题
         /// </summary>
         /// <returns></returns>
-        public async Task<List<Banner>> GetALLBanners()
+        public async Task<PaginatedList<Banner>> GetALLBanners(BannerQueryParameters bannerQueryParameters)
         {
-            return await _db.Banner.ToListAsync();
-        }
+            var qureyBanner =  _db.Banner.OrderBy(x => x.Id);//先排序在分页
 
+            var count = await _db.Banner.CountAsync();
+
+            var data = await qureyBanner
+                .Skip(bannerQueryParameters.PageIndex * bannerQueryParameters.PageSize)
+                .Take(bannerQueryParameters.PageSize)
+                .ToListAsync();
+
+            return new PaginatedList<Banner>(bannerQueryParameters.PageIndex, bannerQueryParameters.PageSize, count, data);
+        }
+        /// <summary>
+        /// 根据ID获取主题
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<Banner> GetPostByIdAsync(int id)
+        {
+            return await _db.Banner.FindAsync(id);
+        }
     }
 }
