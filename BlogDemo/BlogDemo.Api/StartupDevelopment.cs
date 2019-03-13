@@ -10,6 +10,9 @@ using BlogDemo.Infrastructure.Imp;
 using AutoMapper;
 using BlogDemo.Infrastructure.Resources;
 using FluentValidation;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Routing;
 
 namespace BlogDemo.Api
 {
@@ -43,6 +46,15 @@ namespace BlogDemo.Api
             services.AddAutoMapper();
             //注册验证工具（FluentValidation）
             services.AddTransient<IValidator<BannerResources>, BannerResourcesValidator>();
+            //注册Url分页
+            services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+            services.AddScoped<IUrlHelper>(factory =>
+            {
+                var actionContext = factory.GetService<IActionContextAccessor>().ActionContext;
+                return new UrlHelper(actionContext);
+            });
+               
+
         }
         public void Configure(IApplicationBuilder app)
         {

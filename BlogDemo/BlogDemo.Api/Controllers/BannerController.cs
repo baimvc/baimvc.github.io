@@ -23,12 +23,14 @@ namespace BlogDemo.Api.Controllers
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger _loggerFactory;
         private readonly IMapper _mapper;
+        private readonly IUrlHelper _urlHelper;
 
         public BannerController(
             IBannerRepository bannerRepository,
             IUnitOfWork unitOfWork,
             ILoggerFactory loggerFactory,
-            IMapper mapper
+            IMapper mapper,
+            IUrlHelper urlHelper
             )
         {
             //注入这两个实例所用的都是同一个MyDBContext
@@ -36,20 +38,30 @@ namespace BlogDemo.Api.Controllers
             _unitOfWork = unitOfWork;
             _loggerFactory = loggerFactory.CreateLogger("BlogDemo.Api.Controllers.BannerController");
             _mapper = mapper;
+            _urlHelper = urlHelper;
         }
 
         // GET: /<controller>/
+        [HttpGet(Name = "GetBanner")]
         public async Task<IActionResult>  GetAsync(BannerQueryParameters bannerQueryParameters)
         {
             var bannerList = await _bannerRepository.GetALLBanners(bannerQueryParameters);
 
             var bannerResources = _mapper.Map<IEnumerable<Banner>,IEnumerable<BannerResources>>(bannerList);
+            //前一页
+            var previousPageLink = bannerList.HasPrevious ?
+                CreatePageUrl(bannerQueryParameters,PaginationResourceUriType.PreviousPage) : null;
+            //下一页
+            var nextPageLink = bannerList.HasNext ?
+                CreatePageUrl(bannerQueryParameters, PaginationResourceUriType.NextPage) : null;
+
             var meta = new {
                 PageSize = bannerList.PageSize,
                 PageIndex = bannerList.PageIndex,
                 PageCount = bannerList.PageCount,
-                TotalItemsCount = bannerList.TotalItemsCount
-                
+                TotalItemsCount = bannerList.TotalItemsCount,
+                previousPageLink,
+                nextPageLink
             };
             Response.Headers.Add("X-Pagintion", JsonConvert.SerializeObject(meta, new JsonSerializerSettings
             {
@@ -57,6 +69,47 @@ namespace BlogDemo.Api.Controllers
             }));
 
             return Ok(bannerResources);
+        }
+        /// <summary>
+        /// 创建 前一页、后一页、当前页的url
+        /// </summary>
+        /// <param name="bannerQueryParameters">分页请求参数类</param>
+        /// <param name="uriType">分页按钮类型</param>
+        /// <returns></returns>
+        private string CreatePageUrl(BannerQueryParameters bannerQueryParameters, PaginationResourceUriType uriType)
+        {
+            switch (uriType)
+            {
+                case PaginationResourceUriType.PreviousPage:
+                    var perviousParameters = new
+                    {
+                        PageIndex = bannerQueryParameters.PageIndex-1,
+                        PageSize = bannerQueryParameters.PageSize,
+                        OrderBy = bannerQueryParameters.OrderBy,
+                        fields = bannerQueryParameters.Fields
+
+                    };
+                    return _urlHelper.Link("GetBanner", perviousParameters);
+                case PaginationResourceUriType.NextPage:
+                    var nextPageParameters = new
+                    {
+                        PageIndex = bannerQueryParameters.PageIndex + 1,
+                        PageSize = bannerQueryParameters.PageSize,
+                        OrderBy = bannerQueryParameters.OrderBy,
+                        fields = bannerQueryParameters.Fields
+
+                    };
+                    return _urlHelper.Link("GetBanner", nextPageParameters);
+                default:
+                    var currentParameters = new {
+                        PageIndex = bannerQueryParameters.PageIndex,
+                        PageSize = bannerQueryParameters.PageSize,
+                        OrderBy = bannerQueryParameters.OrderBy,
+                        fields = bannerQueryParameters.Fields
+
+                    };
+                    return _urlHelper.Link("GetBanner", currentParameters);
+            }
         }
         [HttpGet("{id}")]
         public async Task<IActionResult> GetAsync(int id)

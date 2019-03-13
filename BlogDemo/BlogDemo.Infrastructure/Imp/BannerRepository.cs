@@ -35,9 +35,14 @@ namespace BlogDemo.Infrastructure.Imp
         /// <returns></returns>
         public async Task<PaginatedList<Banner>> GetALLBanners(BannerQueryParameters bannerQueryParameters)
         {
-            var qureyBanner =  _db.Banner.OrderBy(x => x.Id);//先排序在分页
+            var qureyBanner = _db.Banner.AsQueryable();
+            if (!string.IsNullOrEmpty(bannerQueryParameters.Image))
+            {
+                qureyBanner =  qureyBanner.Where(x => x.Image.ToLowerInvariant() == bannerQueryParameters.Image.ToLowerInvariant());
+            }
+            qureyBanner = qureyBanner.OrderBy(x => x.Id);
 
-            var count = await _db.Banner.CountAsync();
+            var count = await qureyBanner.CountAsync();
 
             var data = await qureyBanner
                 .Skip(bannerQueryParameters.PageIndex * bannerQueryParameters.PageSize)

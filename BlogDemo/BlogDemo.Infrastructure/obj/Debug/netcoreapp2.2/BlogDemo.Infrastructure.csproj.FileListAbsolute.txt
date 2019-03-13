@@ -12,3 +12,17 @@ D:\MyGit\ByTest\baimvc.githup.io\BlogDemo\BlogDemo.Infrastructure\bin\Debug\netc
 D:\MyGit\ByTest\baimvc.githup.io\BlogDemo\BlogDemo.Infrastructure\bin\Debug\netcoreapp2.2\BlogDemo.Infrastructure.pdb
 D:\MyGit\ByTest\baimvc.githup.io\BlogDemo\BlogDemo.Infrastructure\obj\Debug\netcoreapp2.2\BlogDemo.Infrastructure.dll
 D:\MyGit\ByTest\baimvc.githup.io\BlogDemo\BlogDemo.Infrastructure\obj\Debug\netcoreapp2.2\BlogDemo.Infrastructure.pdb
+E:\MyGit\baimvc.github.io\BlogDemo\BlogDemo.Infrastructure\bin\Debug\netcoreapp2.2\BlogDemo.Infrastructure.deps.json
+E:\MyGit\baimvc.github.io\BlogDemo\BlogDemo.Infrastructure\bin\Debug\netcoreapp2.2\BlogDemo.Infrastructure.runtimeconfig.json
+E:\MyGit\baimvc.github.io\BlogDemo\BlogDemo.Infrastructure\bin\Debug\netcoreapp2.2\BlogDemo.Infrastructure.runtimeconfig.dev.json
+E:\MyGit\baimvc.github.io\BlogDemo\BlogDemo.Infrastructure\bin\Debug\netcoreapp2.2\BlogDemo.Infrastructure.dll
+E:\MyGit\baimvc.github.io\BlogDemo\BlogDemo.Infrastructure\bin\Debug\netcoreapp2.2\BlogDemo.Infrastructure.pdb
+E:\MyGit\baimvc.github.io\BlogDemo\BlogDemo.Infrastructure\bin\Debug\netcoreapp2.2\BlogDemo.Core.dll
+E:\MyGit\baimvc.github.io\BlogDemo\BlogDemo.Infrastructure\bin\Debug\netcoreapp2.2\BlogDemo.Core.pdb
+E:\MyGit\baimvc.github.io\BlogDemo\BlogDemo.Infrastructure\obj\Debug\netcoreapp2.2\BlogDemo.Infrastructure.csprojAssemblyReference.cache
+E:\MyGit\baimvc.github.io\BlogDemo\BlogDemo.Infrastructure\obj\Debug\netcoreapp2.2\BlogDemo.Infrastructure.csproj.CoreCompileInputs.cache
+E:\MyGit\baimvc.github.io\BlogDemo\BlogDemo.Infrastructure\obj\Debug\netcoreapp2.2\BlogDemo.Infrastructure.AssemblyInfoInputs.cache
+E:\MyGit\baimvc.github.io\BlogDemo\BlogDemo.Infrastructure\obj\Debug\netcoreapp2.2\BlogDemo.Infrastructure.AssemblyInfo.cs
+E:\MyGit\baimvc.github.io\BlogDemo\BlogDemo.Infrastructure\obj\Debug\netcoreapp2.2\BlogDemo.Infrastructure.csproj.CopyComplete
+E:\MyGit\baimvc.github.io\BlogDemo\BlogDemo.Infrastructure\obj\Debug\netcoreapp2.2\BlogDemo.Infrastructure.dll
+E:\MyGit\baimvc.github.io\BlogDemo\BlogDemo.Infrastructure\obj\Debug\netcoreapp2.2\BlogDemo.Infrastructure.pdb

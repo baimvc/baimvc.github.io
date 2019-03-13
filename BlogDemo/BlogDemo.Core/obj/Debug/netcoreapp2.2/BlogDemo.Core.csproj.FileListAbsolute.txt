@@ -7,3 +7,12 @@ D:\MyGit\ByTest\baimvc.githup.io\BlogDemo\BlogDemo.Core\obj\Debug\netcoreapp2.2\
 D:\MyGit\ByTest\baimvc.githup.io\BlogDemo\BlogDemo.Core\obj\Debug\netcoreapp2.2\BlogDemo.Core.AssemblyInfo.cs
 D:\MyGit\ByTest\baimvc.githup.io\BlogDemo\BlogDemo.Core\obj\Debug\netcoreapp2.2\BlogDemo.Core.dll
 D:\MyGit\ByTest\baimvc.githup.io\BlogDemo\BlogDemo.Core\obj\Debug\netcoreapp2.2\BlogDemo.Core.pdb
+E:\MyGit\baimvc.github.io\BlogDemo\BlogDemo.Core\bin\Debug\netcoreapp2.2\BlogDemo.Core.deps.json
+E:\MyGit\baimvc.github.io\BlogDemo\BlogDemo.Core\bin\Debug\netcoreapp2.2\BlogDemo.Core.dll
+E:\MyGit\baimvc.github.io\BlogDemo\BlogDemo.Core\bin\Debug\netcoreapp2.2\BlogDemo.Core.pdb
+E:\MyGit\baimvc.github.io\BlogDemo\BlogDemo.Core\obj\Debug\netcoreapp2.2\BlogDemo.Core.csprojAssemblyReference.cache
+E:\MyGit\baimvc.github.io\BlogDemo\BlogDemo.Core\obj\Debug\netcoreapp2.2\BlogDemo.Core.csproj.CoreCompileInputs.cache
+E:\MyGit\baimvc.github.io\BlogDemo\BlogDemo.Core\obj\Debug\netcoreapp2.2\BlogDemo.Core.AssemblyInfoInputs.cache
+E:\MyGit\baimvc.github.io\BlogDemo\BlogDemo.Core\obj\Debug\netcoreapp2.2\BlogDemo.Core.AssemblyInfo.cs
+E:\MyGit\baimvc.github.io\BlogDemo\BlogDemo.Core\obj\Debug\netcoreapp2.2\BlogDemo.Core.dll
+E:\MyGit\baimvc.github.io\BlogDemo\BlogDemo.Core\obj\Debug\netcoreapp2.2\BlogDemo.Core.pdb

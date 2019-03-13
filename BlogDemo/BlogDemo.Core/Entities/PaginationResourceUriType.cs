@@ -4,8 +4,10 @@ using System.Text;
 
 namespace BlogDemo.Core.Entities
 {
-    public class BannerQueryParameters:QueryParameters
+    public enum PaginationResourceUriType
     {
-        public string Image { get; set; }
-    } 
+        CurrentPage,
+        PreviousPage,
+        NextPage
+    }
 }
