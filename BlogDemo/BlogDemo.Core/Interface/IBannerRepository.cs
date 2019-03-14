@@ -10,8 +10,11 @@ namespace BlogDemo.Core.Interface
 {
     public interface IBannerRepository
     {
-        Task<PaginatedList<Banner>> GetALLBanners(BannerQueryParameters bannerQueryParameters);
+        Task<PaginatedList<Banner>> GetPagingBanners(BannerQueryParameters bannerQueryParameters);
+        Task<IEnumerable<Banner>> GetAllBanners();
+        Task<Banner> GetSearchBanner(string image);
         void AddBanner(PostBanner banner);
-        Task<Banner> GetPostByIdAsync(int id);
+        void DeleteBannerById(int id);
+        Task<Banner> GetBannerByIdAsync(int id);
     }
 }

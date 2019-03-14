@@ -6,6 +6,7 @@ using AutoMapper;
 using BlogDemo.Core.Entities;
 using BlogDemo.Core.Interface;
 using BlogDemo.Core.Request;
+using BlogDemo.Core.Response;
 using BlogDemo.Infrastructure.Database;
 using BlogDemo.Infrastructure.Resources;
 using Microsoft.AspNetCore.Mvc;
@@ -18,7 +19,7 @@ namespace BlogDemo.Api.Controllers
     [Route("api/Banners")]
     public class BannerController : Controller
     {
-        private readonly IBannerRepository  _bannerRepository;
+        private readonly IBannerRepository _bannerRepository;
         //工作单元模式
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger _loggerFactory;
@@ -43,14 +44,14 @@ namespace BlogDemo.Api.Controllers
 
         // GET: /<controller>/
         [HttpGet(Name = "GetBanner")]
-        public async Task<IActionResult>  GetAsync(BannerQueryParameters bannerQueryParameters)
+        public async Task<IActionResult> GetAsync(BannerQueryParameters bannerQueryParameters)
         {
-            var bannerList = await _bannerRepository.GetALLBanners(bannerQueryParameters);
+            var bannerList = await _bannerRepository.GetPagingBanners(bannerQueryParameters);
 
-            var bannerResources = _mapper.Map<IEnumerable<Banner>,IEnumerable<BannerResources>>(bannerList);
+            var bannerResources = _mapper.Map<IEnumerable<Banner>, IEnumerable<BannerResources>>(bannerList);
             //前一页
             var previousPageLink = bannerList.HasPrevious ?
-                CreatePageUrl(bannerQueryParameters,PaginationResourceUriType.PreviousPage) : null;
+                CreatePageUrl(bannerQueryParameters, PaginationResourceUriType.PreviousPage) : null;
             //下一页
             var nextPageLink = bannerList.HasNext ?
                 CreatePageUrl(bannerQueryParameters, PaginationResourceUriType.NextPage) : null;
@@ -68,7 +69,7 @@ namespace BlogDemo.Api.Controllers
                 ContractResolver = new CamelCasePropertyNamesContractResolver()
             }));
 
-            return Ok(bannerResources);
+            return Ok(JsonNetHelper.SerializerToString(new ResponseModel { Code = 200, Reslut = "Success", Data = bannerResources }));
         }
         /// <summary>
         /// 创建 前一页、后一页、当前页的url
@@ -83,7 +84,7 @@ namespace BlogDemo.Api.Controllers
                 case PaginationResourceUriType.PreviousPage:
                     var perviousParameters = new
                     {
-                        PageIndex = bannerQueryParameters.PageIndex-1,
+                        PageIndex = bannerQueryParameters.PageIndex - 1,
                         PageSize = bannerQueryParameters.PageSize,
                         OrderBy = bannerQueryParameters.OrderBy,
                         fields = bannerQueryParameters.Fields
@@ -114,21 +115,38 @@ namespace BlogDemo.Api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetAsync(int id)
         {
-            var post =  await _bannerRepository.GetPostByIdAsync(id);
+            var post = await _bannerRepository.GetBannerByIdAsync(id);
             if (post == null)
             {
-                return NotFound();
+                return Ok(JsonNetHelper.SerializerToString(new ResponseModel { Code = 0, Reslut = "改数据不存在！" }));
+
             }
             var bannerResources = _mapper.Map<Banner, BannerResources>(post);
-            return Ok(bannerResources);
+            return Ok(JsonNetHelper.SerializerToString(new ResponseModel { Code = 200, Reslut = "Success", Data = bannerResources }));
         }
         [HttpPost]
-        public async Task<IActionResult> AddBanner([FromBody] PostBanner postBanner)
+        public async Task<IActionResult> AddBannerAsync([FromBody] PostBanner postBanner)
         {
-           
+            //判断添加的主题是否重复
+            var isBanner = await _bannerRepository.GetSearchBanner(postBanner.Image);
+            if (isBanner != null)
+            {
+                return Ok(JsonNetHelper.SerializerToString(new ResponseModel { Code = 0, Reslut = "主题数据添加重复！" }));
+            }
             _bannerRepository.AddBanner(postBanner);
-            await _unitOfWork.SaveAsync();
-            return Ok();
+            bool b = await _unitOfWork.SaveAsync();
+            if (b)
+                return Ok(JsonNetHelper.SerializerToString(new ResponseModel { Code = 200, Reslut = "主题数据添加成功！" }));
+            return Ok(JsonNetHelper.SerializerToString(new ResponseModel { Code = 0, Reslut = "主题数据添加失败！" }));
+        }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DelBannerAsync(int id)
+        {
+            _bannerRepository.DeleteBannerById(id);
+            bool b = await _unitOfWork.SaveAsync();
+            if (b)
+                return Ok(JsonNetHelper.SerializerToString(new ResponseModel { Code = 200, Reslut = "删除数据成功！" }));
+            return Ok(JsonNetHelper.SerializerToString(new ResponseModel { Code = 0, Reslut = "删除数据失败！" }));
         }
 
     }
