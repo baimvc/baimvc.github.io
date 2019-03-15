@@ -32,7 +32,7 @@ namespace BlogDemo.Api.Controllers
             ILoggerFactory loggerFactory,
             IMapper mapper,
             IUrlHelper urlHelper
-            )
+        )
         {
             //注入这两个实例所用的都是同一个MyDBContext
             _bannerRepository = bannerRepository;
@@ -41,7 +41,16 @@ namespace BlogDemo.Api.Controllers
             _mapper = mapper;
             _urlHelper = urlHelper;
         }
-
+        /// <summary>
+        /// 获取全部主题数据
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IActionResult> GetAllBanners()
+        {
+            var bannerList = await _bannerRepository.GetAllBanners();
+            var bannerListRessources = _mapper.Map<IEnumerable<Banner>, IEnumerable<BannerResources>>(bannerList);
+            return Ok(JsonNetHelper.SerializerToString(new ResponseModel { Code = 200, Reslut = "Success", Data = bannerListRessources }));
+        }
         // GET: /<controller>/
         [HttpGet(Name = "GetBanner")]
         public async Task<IActionResult> GetAsync(BannerQueryParameters bannerQueryParameters)
@@ -128,7 +137,7 @@ namespace BlogDemo.Api.Controllers
         public async Task<IActionResult> AddBannerAsync([FromBody] PostBanner postBanner)
         {
             //判断添加的主题是否重复
-            var isBanner = await _bannerRepository.GetSearchBanner(postBanner.Image);
+            var isBanner = await _bannerRepository.GetSearchOneBanner(x=>x.Image == postBanner.Image);
             if (isBanner != null)
             {
                 return Ok(JsonNetHelper.SerializerToString(new ResponseModel { Code = 0, Reslut = "主题数据添加重复！" }));
@@ -138,6 +147,16 @@ namespace BlogDemo.Api.Controllers
             if (b)
                 return Ok(JsonNetHelper.SerializerToString(new ResponseModel { Code = 200, Reslut = "主题数据添加成功！" }));
             return Ok(JsonNetHelper.SerializerToString(new ResponseModel { Code = 0, Reslut = "主题数据添加失败！" }));
+        }
+        [HttpPut]
+        public async Task<IActionResult> EditBannerAsync([FromBody] EditBanner banner)
+        {
+            
+            _bannerRepository.EditBanner(banner);
+            bool b = await _unitOfWork.SaveAsync();
+            if (b)
+                return Ok(JsonNetHelper.SerializerToString(new ResponseModel { Code = 200, Reslut = "主题数据修改成功！" }));
+            return Ok(JsonNetHelper.SerializerToString(new ResponseModel { Code = 0, Reslut = "主题数据修改失败！" }));
         }
         [HttpDelete("{id}")]
         public async Task<IActionResult> DelBannerAsync(int id)

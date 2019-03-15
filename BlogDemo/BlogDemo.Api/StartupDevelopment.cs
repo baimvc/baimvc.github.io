@@ -13,6 +13,9 @@ using FluentValidation;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Routing;
+using Swashbuckle.AspNetCore.Swagger;
+using System.IO;
+using BlogDemo.Infrastructure.Services;
 
 namespace BlogDemo.Api
 {
@@ -29,7 +32,12 @@ namespace BlogDemo.Api
 
           
             services.AddMvc();//启用MVC服务
-            //var connectionString = Configuration["ConnectionStrings:DefaultConnection"];//第一种方式获取appsettings配置文件中的值。
+            //注册Swagger
+            //services.AddSwaggerGen(c => {
+            //    c.SwaggerDoc("v1", new Info { Title = "DemoAPI", Version = "v1"});
+            //    //添加xml文件
+            //    c.IncludeXmlComments(Path.Combine(Directory.GetCurrentDirectory(), "Api.xml"));
+            //});
 
             var connectionString = Configuration.GetConnectionString("DefaultConnection");  
             services.AddDbContext<MyDBContext>(options => options.UseSqlServer(connectionString));
@@ -53,7 +61,10 @@ namespace BlogDemo.Api
                 var actionContext = factory.GetService<IActionContextAccessor>().ActionContext;
                 return new UrlHelper(actionContext);
             });
-               
+            //注册 EF查询 根据字段动态排序
+            var propertyMappingContainer = new PropertyMappingContainer();//创建属性映射容器
+            propertyMappingContainer.Register<BannerPropertyMapping>();//注册要映射的类
+            services.AddSingleton<IPropertyMappingContainer>(propertyMappingContainer);//注册到.netcoer单例中
 
         }
         public void Configure(IApplicationBuilder app)
@@ -61,6 +72,14 @@ namespace BlogDemo.Api
             app.UseDeveloperExceptionPage();
             app.UseMvc();
             //app.UseHttpsRedirection(); //启用https
+
+            //启用Swagger
+            //app.UseSwagger();
+            //app.UseSwaggerUI(c=> {
+            //    c.SwaggerEndpoint("swagger/v1/swagger.json","DemoAPI V1");
+            //    //加载汉化的js文件，注意 swagger.js文件属性必须设置为“嵌入的资源”。
+            //    c.InjectJavascript("/Scripts/swagger.js");
+            //});
         }
     }
 }

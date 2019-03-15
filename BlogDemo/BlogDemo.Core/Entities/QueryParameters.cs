@@ -38,7 +38,7 @@ namespace BlogDemo.Core.Entities
         /// 默认按ID排序
         /// </summary>
         private string _orderBy;
-        public string OrderBy
+        public virtual string OrderBy
         {
             get { return _orderBy; }
             set { _orderBy = value ?? nameof(EntityBase.Id); }

@@ -2,10 +2,14 @@
 using BlogDemo.Core.Interface;
 using BlogDemo.Core.Request;
 using BlogDemo.Infrastructure.Database;
+using BlogDemo.Infrastructure.Extensions;
+using BlogDemo.Infrastructure.Resources;
+using BlogDemo.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,11 +18,17 @@ namespace BlogDemo.Infrastructure.Imp
     public class BannerRepository : IBannerRepository
     {
         private readonly MyDBContext _db;
+        private readonly IPropertyMappingContainer _propertyMappingContainer;
 
-        public BannerRepository(MyDBContext db)
+        public BannerRepository(
+            MyDBContext db,
+            IPropertyMappingContainer propertyMappingContainer
+        )
         {
-            this._db = db;
+            _db = db;
+            _propertyMappingContainer = propertyMappingContainer;
         }
+
         /// <summary>
         /// 添加主题
         /// </summary>
@@ -29,7 +39,24 @@ namespace BlogDemo.Infrastructure.Imp
             var bannerModel = new Banner() {  Image = banner.Image, Url = banner.Url, AddTime = banner.AddTime, Remark = banner.Remark};
              _db.Banner.Add(bannerModel);
         }
+        /// <summary>
+        /// 修改主题
+        /// </summary>
+        /// <param name="banner"></param>
+        public void EditBanner(EditBanner banner)
+        {
+            var editBanner =  _db.Banner.Find(banner.Id);
+            if (editBanner != null)
+            {
+                editBanner.Image = banner.Image;
+                editBanner.Url = banner.Url;
+                editBanner.AddTime = DateTime.Now;
+                editBanner.Remark = banner.Remark;
+                _db.Banner.Update(editBanner);
+            }
+           
 
+        }
         /// <summary>
         /// 获取所有主题
         /// </summary>
@@ -41,7 +68,8 @@ namespace BlogDemo.Infrastructure.Imp
             {
                 qureyBanner =  qureyBanner.Where(x => x.Image.ToLowerInvariant() == bannerQueryParameters.Image.ToLowerInvariant());
             }
-            qureyBanner = qureyBanner.OrderByDescending(x => x.AddTime);
+            //OrderBy 根据字段动态排序
+            qureyBanner = qureyBanner.ApplySort(bannerQueryParameters.OrderBy,_propertyMappingContainer.Resolve<BannerResources,Banner>());
 
             var count = await qureyBanner.CountAsync();
 
@@ -58,17 +86,9 @@ namespace BlogDemo.Infrastructure.Imp
         /// <returns></returns>
         public async Task<IEnumerable<Banner>> GetAllBanners()
         {
-            return await _db.Banner.ToListAsync();
+            return await _db.Banner.OrderByDescending(x=>x.AddTime).ToListAsync();
         }
-        /// <summary>
-        /// 根据主题条件返回数据
-        /// </summary>
-        /// <param name="banner"></param>
-        /// <returns></returns>
-        public async Task<Banner> GetSearchBanner(string image)
-        {
-            return await _db.Banner.FirstOrDefaultAsync(x => x.Image == image);
-        }
+        
         /// <summary>
         /// 根据ID获取主题
         /// </summary>
@@ -86,7 +106,21 @@ namespace BlogDemo.Infrastructure.Imp
         public void DeleteBannerById(int id)
         {
             var delBanner = _db.Banner.Find(id);
-            _db.Banner.Remove(delBanner);
+            if (delBanner != null)
+            {
+                _db.Banner.Remove(delBanner);
+            }
+            
+        }
+        /// <summary>
+        /// 根据主题条件返回数据
+        /// </summary>
+        /// <param name="banner"></param>
+        /// <returns></returns>
+
+        public async Task<Banner> GetSearchOneBanner(Expression<Func<Banner, bool>> where)
+        {
+            return await _db.Banner.FirstOrDefaultAsync(where);
         }
     }
 }
