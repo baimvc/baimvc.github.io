@@ -2,7 +2,7 @@
 using BlogDemo.Core.Request;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace BlogDemo.Core.Interface
@@ -10,10 +10,11 @@ namespace BlogDemo.Core.Interface
     public interface INewsClassifyRepository
     {
         Task<PaginatedList<NewsClassify>> GetPagingNewsClassify(NewsClassifyQueryParameters newsClassifyQueryParameters);
-        void AddNewsClassify(AddNewsClassify newsClassify);
         Task<IEnumerable<NewsClassify>> GetAllNewsClassifys();
-        Task<NewsClassify> GetSearchNewsClassify(string name);
+        Task<NewsClassify> GetSearchOneNewsClassify(Expression<Func<NewsClassify, bool>> where);
+        void AddNewsClassify(AddNewsClassify newsClassify);
         void DeleteNewsClassifyById(int id);
-        Task<NewsClassify> GetNewsClassifyByIdAsync(int id);
+        void EditNewsClassify(EditNewsClassify banner);
+
     }
 }

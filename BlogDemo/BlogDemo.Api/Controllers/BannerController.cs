@@ -136,6 +136,10 @@ namespace BlogDemo.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> AddBannerAsync([FromBody] PostBanner postBanner)
         {
+            if (!ModelState.IsValid)
+            {
+                return Ok(JsonNetHelper.SerializerToString(new ResponseModel { Code = 0, Reslut = "数据验证不通过！" }));
+            }
             //判断添加的主题是否重复
             var isBanner = await _bannerRepository.GetSearchOneBanner(x=>x.Image == postBanner.Image);
             if (isBanner != null)
@@ -145,8 +149,8 @@ namespace BlogDemo.Api.Controllers
             _bannerRepository.AddBanner(postBanner);
             bool b = await _unitOfWork.SaveAsync();
             if (b)
-                return Ok(JsonNetHelper.SerializerToString(new ResponseModel { Code = 200, Reslut = "主题数据添加成功！" }));
-            return Ok(JsonNetHelper.SerializerToString(new ResponseModel { Code = 0, Reslut = "主题数据添加失败！" }));
+                return Ok(JsonNetHelper.SerializerToString(new ResponseModel { Code = 200, Reslut = "数据添加成功！" }));
+            return Ok(JsonNetHelper.SerializerToString(new ResponseModel { Code = 0, Reslut = "数据添加失败！" }));
         }
         [HttpPut]
         public async Task<IActionResult> EditBannerAsync([FromBody] EditBanner banner)
@@ -155,8 +159,8 @@ namespace BlogDemo.Api.Controllers
             _bannerRepository.EditBanner(banner);
             bool b = await _unitOfWork.SaveAsync();
             if (b)
-                return Ok(JsonNetHelper.SerializerToString(new ResponseModel { Code = 200, Reslut = "主题数据修改成功！" }));
-            return Ok(JsonNetHelper.SerializerToString(new ResponseModel { Code = 0, Reslut = "主题数据修改失败！" }));
+                return Ok(JsonNetHelper.SerializerToString(new ResponseModel { Code = 200, Reslut = "数据修改成功！" }));
+            return Ok(JsonNetHelper.SerializerToString(new ResponseModel { Code = 0, Reslut = "数据修改失败！" }));
         }
         [HttpDelete("{id}")]
         public async Task<IActionResult> DelBannerAsync(int id)

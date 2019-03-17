@@ -10,7 +10,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BlogDemo.Infrastructure.Imp
@@ -36,8 +35,12 @@ namespace BlogDemo.Infrastructure.Imp
      
         public void AddBanner(PostBanner banner)
         {
-            var bannerModel = new Banner() {  Image = banner.Image, Url = banner.Url, AddTime = banner.AddTime, Remark = banner.Remark};
-             _db.Banner.Add(bannerModel);
+            if (banner != null)
+            {
+                var bannerModel = new Banner() { Image = banner.Image, Url = banner.Url, AddTime = banner.AddTime, Remark = banner.Remark };
+                _db.Banner.Add(bannerModel);
+            }
+            
         }
         /// <summary>
         /// 修改主题

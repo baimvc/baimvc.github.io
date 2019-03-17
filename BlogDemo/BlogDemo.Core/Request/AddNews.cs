@@ -2,23 +2,17 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BlogDemo.Core.Entities
+namespace BlogDemo.Core.Request
 {
-    public class News: EntityBase
+    public class AddNews
     {
-        public News()
-        {
-            this.NewsComment = new HashSet<NewsComment>();
-        }
         public int NewsClassifyId { get; set; }
+        public string NewsClassifyName { get; set; }
         public string Title { get; set; }
         public string Image { get; set; }
         public string Contents { get; set; }
         public DateTime? PublishDate { get; set; }
         public string Remark { get; set; }
-        public NewsClassify NewsClassify { get; set; }
-        public ICollection<NewsComment> NewsComment { get; set; }
-
-
+      
     }
 }

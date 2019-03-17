@@ -18,11 +18,8 @@ namespace BlogDemo.Infrastructure.Resources
                 [nameof(BannerResources.Url)] = new List<MappedProperty>
                 {
                     new MappedProperty{ Name = nameof(Banner.Url), Revert = false}
-                },
-                [nameof(BannerResources.Remark)] = new List<MappedProperty>
-                {
-                    new MappedProperty{ Name = nameof(Banner.Remark), Revert = false}
                 }
+                
                 
             })
         {

@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
 
-namespace BlogDemo.Core.Entities
+namespace BlogDemo.Core.Request
 {
     public abstract class QueryParameters :INotifyPropertyChanged
     {

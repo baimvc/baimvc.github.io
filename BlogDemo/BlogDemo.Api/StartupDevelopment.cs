@@ -49,6 +49,7 @@ namespace BlogDemo.Api
             //});
             //注册实例
             services.AddScoped<IBannerRepository, BannerRepository>();
+            services.AddScoped<INewsClassifyRepository, NewsClassifyRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             //注册AutoMapper
             services.AddAutoMapper();
@@ -63,7 +64,9 @@ namespace BlogDemo.Api
             });
             //注册 EF查询 根据字段动态排序
             var propertyMappingContainer = new PropertyMappingContainer();//创建属性映射容器
-            propertyMappingContainer.Register<BannerPropertyMapping>();//注册要映射的类
+            propertyMappingContainer.Register<BannerPropertyMapping>();//注册Banner要映射的类
+            propertyMappingContainer.Register<NewsClassifyPropertyMapping>();//注册NewsClassify要映射的类
+            propertyMappingContainer.Register<NewsPropertyMapping>();//注册News要映射的类
             services.AddSingleton<IPropertyMappingContainer>(propertyMappingContainer);//注册到.netcoer单例中
 
         }

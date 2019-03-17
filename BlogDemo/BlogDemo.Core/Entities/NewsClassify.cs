@@ -10,10 +10,10 @@ namespace BlogDemo.Core.Entities
         {
             this.News = new HashSet<News>();
         }
-        public ICollection<News> News { get; set; }
+       
         public string Name { get; set; }
         public int Sort { get; set; }
         public string Remark { get; set; }
-       
+        public ICollection<News> News { get; set; }
     }
 }

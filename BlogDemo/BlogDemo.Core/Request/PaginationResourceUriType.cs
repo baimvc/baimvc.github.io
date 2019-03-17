@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BlogDemo.Core.Entities
+namespace BlogDemo.Core.Request
 {
     public enum PaginationResourceUriType
     {

@@ -20,7 +20,7 @@ namespace BlogDemo.Infrastructure.Resources
                 .NotNull()
                 .WithName("分类名称")
                 .WithMessage("{PropertyName}是必填的")
-                .MaximumLength(200)
+                .MaximumLength(50)
                 .WithMessage("{PropertyName}的最大长度是{MaxLengh}");
             RuleFor(x => x.Sort)
                 .NotNull()
