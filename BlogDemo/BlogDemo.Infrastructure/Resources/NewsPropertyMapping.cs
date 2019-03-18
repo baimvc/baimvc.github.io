@@ -11,6 +11,10 @@ namespace BlogDemo.Infrastructure.Resources
         public NewsPropertyMapping() : base(
            new Dictionary<string, List<MappedProperty>>(StringComparer.OrdinalIgnoreCase)//StringComparer.OrdinalIgnoreCase 不区分大小写
             {
+               [nameof(NewsResources.Id)] = new List<MappedProperty>
+               {
+                    new MappedProperty{ Name = nameof(News.Id), Revert = false}
+               },
                [nameof(NewsResources.Title)] = new List<MappedProperty>
                {
                     new MappedProperty{ Name = nameof(News.Title), Revert = false}

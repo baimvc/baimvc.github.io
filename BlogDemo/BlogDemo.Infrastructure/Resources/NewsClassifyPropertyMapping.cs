@@ -11,6 +11,10 @@ namespace BlogDemo.Infrastructure.Resources
         public NewsClassifyPropertyMapping() : base(
             new Dictionary<string, List<MappedProperty>>(StringComparer.OrdinalIgnoreCase)//StringComparer.OrdinalIgnoreCase 不区分大小写
             {
+                [nameof(NewsClassifyResources.Id)] = new List<MappedProperty>
+                {
+                    new MappedProperty{ Name = nameof(NewsClassify.Id), Revert = false}
+                },
                 [nameof(NewsClassifyResources.Name)] = new List<MappedProperty>
                 {
                     new MappedProperty{ Name = nameof(NewsClassify.Name), Revert = false}

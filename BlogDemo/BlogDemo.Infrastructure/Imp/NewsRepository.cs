@@ -61,10 +61,7 @@ namespace BlogDemo.Infrastructure.Imp
         }
         public void AddNews(AddNews news)
         {
-            //if (ModelState.IsValid)
-            //{
-
-            //}
+           
             var newsModel = GetSearchOneNews(x => x.Id == news.NewsClassifyId);
             if (newsModel != null)
             {
@@ -107,30 +104,83 @@ namespace BlogDemo.Infrastructure.Imp
                 _db.News.Update(editNewsModel);
             }
         }
+        /// <summary>
+        /// 获取最新评论的新闻集合
+        /// </summary>
+        /// <param name="where"></param>
+        /// <param name="topCount"></param>
+        /// <returns></returns>
         public  List<NewsResources> GetNewsCommentNewsList(Expression<Func<News, bool>> where, int topCount)
         {
             var newsIds = _db.NewsComment.OrderByDescending(x => x.AddTime).GroupBy(x => x.NewsId)
                 .Select(x => x.Key)
                 .Take(topCount);
-            var newsList = _db.News.Include("NewsClassify").Include("NewsComment").Where(x => newsIds.Contains(x.Id))
-                .OrderByDescending(x => x.PublishDate);
             var newsListResources = new List<NewsResources>();
-            foreach (var news in newsList)
+            if (newsIds != null)
             {
-                newsListResources.Add(new NewsResources
+                var newsList = _db.News.Include("NewsClassify").Include("NewsComment").Where(x => newsIds.Contains(x.Id))
+               .OrderByDescending(x => x.PublishDate);
+               
+                if (newsList != null)
                 {
-                    Id = news.Id,
-                    NewsClassifyName = news.NewsClassify.Name,
-                    Title = news.Title,
-                    Image = news.Image,
-                    Contents = news.Contents.Length > 50 ? news.Contents.Substring(0, 50) : news.Contents,
-                    PublishDate = news.PublishDate, 
-                    CommentCount = news.NewsComment.Count(),
-                     Remark = news.Remark
-                 
-                });
+                    foreach (var news in newsList)
+                    {
+                        newsListResources.Add(new NewsResources
+                        {
+                            Id = news.Id,
+                            NewsClassifyName = news.NewsClassify.Name,
+                            Title = news.Title,
+                            Image = news.Image,
+                            Contents = news.Contents.Length > 50 ? news.Contents.Substring(0, 50) : news.Contents,
+                            PublishDate = news.PublishDate,
+                            CommentCount = news.NewsComment.Count(),
+                            Remark = news.Remark
+
+                        });
+                    }
+                }
+                
             }
-            return  newsListResources;
+            return newsListResources;
+
+        }
+        /// <summary>
+        /// 获取相关推荐
+        /// </summary>
+        /// <param name="newsId"></param>
+        /// <returns></returns>
+        public async Task<List<NewsResources>> GetNewsRepositoryList(int newsId)
+        {
+            var news = await _db.News.FirstOrDefaultAsync(x => x.Id == newsId);
+            var newsListResources = new List<NewsResources>();
+            if (news != null)
+            {
+                var newsList = await _db.News.Include("NewsComment")
+                    .Where(x => x.NewsClassifyId == news.NewsClassifyId && x.Id != newsId)
+                    .OrderByDescending(x => x.PublishDate).OrderByDescending(x => x.NewsComment.Count).Take(6).ToListAsync();
+                if (newsList != null)
+                {
+                    foreach (var n in newsList)
+                    {
+                        newsListResources.Add(new NewsResources
+                        {
+                            Id = n.Id,
+                            NewsClassifyName = n.NewsClassify.Name,
+                            Title = n.Title,
+                            Image = n.Image,
+                            Contents = n.Contents.Length > 50 ? n.Contents.Substring(0, 50) : n.Contents,
+                            PublishDate = n.PublishDate,
+                            CommentCount = n.NewsComment.Count(),
+                            Remark = n.Remark
+
+                        });
+                    }
+                }
+
+            }
+            return newsListResources;
+
+
         }
     }
 }

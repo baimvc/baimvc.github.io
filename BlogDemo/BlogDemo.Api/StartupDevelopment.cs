@@ -50,6 +50,8 @@ namespace BlogDemo.Api
             //注册实例
             services.AddScoped<IBannerRepository, BannerRepository>();
             services.AddScoped<INewsClassifyRepository, NewsClassifyRepository>();
+            services.AddScoped<INewsRepository, NewsRepository>();
+            services.AddScoped<INewsCommentRepository, NewsCommentRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             //注册AutoMapper
             services.AddAutoMapper();
@@ -67,6 +69,7 @@ namespace BlogDemo.Api
             propertyMappingContainer.Register<BannerPropertyMapping>();//注册Banner要映射的类
             propertyMappingContainer.Register<NewsClassifyPropertyMapping>();//注册NewsClassify要映射的类
             propertyMappingContainer.Register<NewsPropertyMapping>();//注册News要映射的类
+            propertyMappingContainer.Register<NewsCommentPropertyMapping>();//注册NewsComment要映射的类
             services.AddSingleton<IPropertyMappingContainer>(propertyMappingContainer);//注册到.netcoer单例中
 
         }

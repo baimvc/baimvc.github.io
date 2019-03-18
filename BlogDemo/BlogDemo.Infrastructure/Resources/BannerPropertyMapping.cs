@@ -11,6 +11,10 @@ namespace BlogDemo.Infrastructure.Resources
         public BannerPropertyMapping() : base(
             new Dictionary<string, List<MappedProperty>>(StringComparer.OrdinalIgnoreCase)
             {
+                [nameof(BannerResources.Id)] = new List<MappedProperty>
+                {
+                    new MappedProperty{ Name = nameof(Banner.Id), Revert = false}
+                },
                 [nameof(BannerResources.Image)] = new List<MappedProperty>
                 {
                     new MappedProperty{ Name = nameof(Banner.Image), Revert = false}

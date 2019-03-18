@@ -75,7 +75,7 @@ namespace BlogDemo.Infrastructure.Imp
             _db.NewsClassify.Remove(delNewsClassify);
         }
        
-        public void EditBanner(EditNewsClassify newsClassify)
+        public void EditNewsClassify(EditNewsClassify newsClassify)
         {
             var editEditNewsClassify = _db.NewsClassify.Find(newsClassify.Id);
             if (editEditNewsClassify != null)
