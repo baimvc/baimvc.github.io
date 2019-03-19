@@ -13,7 +13,7 @@ using Newtonsoft.Json.Serialization;
 
 namespace BlogDemo.Api.Controllers
 {
-    [Route("api/News")]
+    [Route("api/[controller]/[action]")]
     public class NewsController : Controller
     {
         private readonly INewsRepository _newsRepository;

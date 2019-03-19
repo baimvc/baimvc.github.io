@@ -19,6 +19,12 @@ namespace BlogDemo.Api.Extensions
             //新闻分类
             CreateMap<NewsClassifyResources, NewsClassify>();
             CreateMap< NewsClassify, NewsClassifyResources>();
+            //新闻
+            CreateMap<NewsResources, News>();
+            CreateMap<News, NewsResources>();
+            //新闻评论
+            CreateMap<NewsCommentResources, NewsComment>();
+            CreateMap<NewsComment, NewsCommentResources>();
         }
     }
 }

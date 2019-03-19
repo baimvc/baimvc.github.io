@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using BlogDemo.Core.Interface;
+using BlogDemo.Core.Request;
+using BlogDemo.Core.Response;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -11,7 +13,7 @@ using Microsoft.Extensions.Logging;
 
 namespace BlogDemo.Api.Controllers
 {
-    [Route("api/NewsComments")]
+    [Route("api/[controller]/[action]")]
     public class NewsCommentController : Controller
     {
         private readonly INewsCommentRepository _newsCommentRepository;
@@ -37,133 +39,40 @@ namespace BlogDemo.Api.Controllers
             _urlHelper = urlHelper;
         }
         /// <summary>
-        /// 获取全部评论数据
+        /// 添加新闻评论
         /// </summary>
+        /// <param name="addComment"></param>
         /// <returns></returns>
-        public async Task<IActionResult> GetAllNews()
-        {
-            var NewsList = await _newsCommentRepository.GetCommentList();
-            var NewsListRessources = _mapper.Map<IEnumerable<News>, IEnumerable<NewsResources>>(NewsList);
-            return Ok(JsonNetHelper.SerializerToString(new ResponseModel { Code = 200, Reslut = "Success", Data = NewsListRessources }));
-        }
-        // GET: /<controller>/
-        [HttpGet(Name = "GetNews")]
-        public async Task<IActionResult> GetAsync(NewsQueryParameters NewsQueryParameters)
-        {
-            var NewsList = await _newsCommentRepository.GetPagingNews(NewsQueryParameters);
-
-            var NewsResources = _mapper.Map<IEnumerable<News>, IEnumerable<NewsResources>>(NewsList);
-            //前一页
-            var previousPageLink = NewsList.HasPrevious ?
-                CreatePageUrl(NewsQueryParameters, PaginationResourceUriType.PreviousPage) : null;
-            //下一页
-            var nextPageLink = NewsList.HasNext ?
-                CreatePageUrl(NewsQueryParameters, PaginationResourceUriType.NextPage) : null;
-
-            var meta = new
-            {
-                PageSize = NewsList.PageSize,
-                PageIndex = NewsList.PageIndex,
-                PageCount = NewsList.PageCount,
-                TotalItemsCount = NewsList.TotalItemsCount,
-                previousPageLink,
-                nextPageLink
-            };
-            Response.Headers.Add("X-Pagintion", JsonConvert.SerializeObject(meta, new JsonSerializerSettings
-            {
-                ContractResolver = new CamelCasePropertyNamesContractResolver()
-            }));
-
-            return Ok(JsonNetHelper.SerializerToString(new ResponseModel { Code = 200, Reslut = "Success", Data = NewsResources }));
-        }
-        /// <summary>
-        /// 创建 前一页、后一页、当前页的url
-        /// </summary>
-        /// <param name="NewsQueryParameters">分页请求参数类</param>
-        /// <param name="uriType">分页按钮类型</param>
-        /// <returns></returns>
-        private string CreatePageUrl(NewsQueryParameters NewsQueryParameters, PaginationResourceUriType uriType)
-        {
-            switch (uriType)
-            {
-                case PaginationResourceUriType.PreviousPage:
-                    var perviousParameters = new
-                    {
-                        PageIndex = NewsQueryParameters.PageIndex - 1,
-                        PageSize = NewsQueryParameters.PageSize,
-                        OrderBy = NewsQueryParameters.OrderBy,
-                        fields = NewsQueryParameters.Fields
-
-                    };
-                    return _urlHelper.Link("GetNews", perviousParameters);
-                case PaginationResourceUriType.NextPage:
-                    var nextPageParameters = new
-                    {
-                        PageIndex = NewsQueryParameters.PageIndex + 1,
-                        PageSize = NewsQueryParameters.PageSize,
-                        OrderBy = NewsQueryParameters.OrderBy,
-                        fields = NewsQueryParameters.Fields
-
-                    };
-                    return _urlHelper.Link("GetNews", nextPageParameters);
-                default:
-                    var currentParameters = new
-                    {
-                        PageIndex = NewsQueryParameters.PageIndex,
-                        PageSize = NewsQueryParameters.PageSize,
-                        OrderBy = NewsQueryParameters.OrderBy,
-                        fields = NewsQueryParameters.Fields
-
-                    };
-                    return _urlHelper.Link("GetNews", currentParameters);
-            }
-        }
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetAsync(int id)
-        {
-            var post = await _newsCommentRepository.GetSearchOneNews(x => x.Id == id);
-            if (post == null)
-            {
-                return Ok(JsonNetHelper.SerializerToString(new ResponseModel { Code = 0, Reslut = "该数据不存在！" }));
-
-            }
-            var NewsResources = _mapper.Map<News, NewsResources>(post);
-            return Ok(JsonNetHelper.SerializerToString(new ResponseModel { Code = 200, Reslut = "Success", Data = NewsResources }));
-        }
         [HttpPost]
-        public async Task<IActionResult> AddNewsAsync([FromBody] AddNews addNews)
+        public async Task<IActionResult> AddNewsCommentAsync([FromBody] AddComment addComment)
         {
             if (!ModelState.IsValid)
             {
                 return Ok(JsonNetHelper.SerializerToString(new ResponseModel { Code = 0, Reslut = "数据验证不通过！" }));
             }
-            _newsCommentRepository.AddNews(addNews);
+            ////判断添加的主题是否重复
+            //var isNewsComment = await _newsCommentRepository.GetCommentById(addComment.NewsId);
+            //if (isNewsComment != null)
+            //{
+            //    return Ok(JsonNetHelper.SerializerToString(new ResponseModel { Code = 0, Reslut = "数据添加重复！" }));
+            //}
+            _newsCommentRepository.AddComment(addComment);
             bool b = await _unitOfWork.SaveAsync();
             if (b)
                 return Ok(JsonNetHelper.SerializerToString(new ResponseModel { Code = 200, Reslut = "数据添加成功！" }));
             return Ok(JsonNetHelper.SerializerToString(new ResponseModel { Code = 0, Reslut = "数据添加失败！" }));
         }
-        [HttpPut]
-        public async Task<IActionResult> EditNewsAsync([FromBody] EditNews News)
+        /// <summary>
+        /// 返回添加评论数据
+        /// </summary>
+        /// <param name="newsId"></param>
+        /// <returns></returns>
+        public async Task<IActionResult> GetCommentByIdAsync(int newsId)
         {
-            if (!ModelState.IsValid)
-            {
-                return Ok(JsonNetHelper.SerializerToString(new ResponseModel { Code = 0, Reslut = "数据验证不通过！" }));
-            }
-            _newsCommentRepository.EditNews(News);
-            bool b = await _unitOfWork.SaveAsync();
-            if (b)
-                return Ok(JsonNetHelper.SerializerToString(new ResponseModel { Code = 200, Reslut = "数据修改成功！" }));
-            return Ok(JsonNetHelper.SerializerToString(new ResponseModel { Code = 0, Reslut = "数据修改失败！" }));
-        }
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DelNewsAsync(int id)
-        {
-            _newsCommentRepository.DeleteNewsById(id);
-            bool b = await _unitOfWork.SaveAsync();
-            if (b)
-                return Ok(JsonNetHelper.SerializerToString(new ResponseModel { Code = 200, Reslut = "删除数据成功！" }));
-            return Ok(JsonNetHelper.SerializerToString(new ResponseModel { Code = 0, Reslut = "删除数据失败！" }));
+            var newsCommentModel = await _newsCommentRepository.GetCommentById(newsId);
+           if(newsCommentModel!=null)
+                return Ok(JsonNetHelper.SerializerToString(new ResponseModel { Code = 200, Reslut = "数据返回成功！",Data = newsCommentModel }));
+            return Ok(JsonNetHelper.SerializerToString(new ResponseModel { Code = 0, Reslut = "数据返回失败！", Data = newsCommentModel }));
         }
     }
 }

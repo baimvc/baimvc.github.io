@@ -83,6 +83,11 @@ namespace BlogDemo.Infrastructure.Imp
                 _db.NewsComment.Remove(comm);
             }
         }
+        /// <summary>
+        /// 返回所有评论
+        /// </summary>
+        /// <param name="where"></param>
+        /// <returns></returns>
         public  List<NewsCommentModel> GetCommentList(Expression<Func<NewsComment, bool>> where)
         {
             var comments =  _db.NewsComment.Include("News").Where(where).OrderByDescending(x => x.AddTime).ToList();

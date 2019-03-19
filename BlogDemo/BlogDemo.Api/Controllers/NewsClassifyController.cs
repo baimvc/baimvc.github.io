@@ -15,7 +15,7 @@ using Newtonsoft.Json.Serialization;
 
 namespace BlogDemo.Api.Controllers
 {
-    [Route("api/NewsClassifys")]
+    [Route("api/[controller]/[action]")]
     public class NewsClassifyController : Controller
     {
         private readonly INewsClassifyRepository _newsClassifyRepository;

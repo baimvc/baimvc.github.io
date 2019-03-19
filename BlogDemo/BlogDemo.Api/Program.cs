@@ -26,24 +26,24 @@ namespace BlogDemo.Api
 
 
             var host = CreateWebHostBuilder(args).Build();
-            //向数据库添加数据
-            using (var scope = host.Services.CreateScope())
-            {
-                var services = scope.ServiceProvider;
-                var loggerFactory = services.GetRequiredService<ILoggerFactory>();
-                try
-                {
-                    var myDBContext = services.GetRequiredService<MyDBContext>();
-                    MyDBContextSeed.SeedAsync(myDBContext, loggerFactory).Wait();
-                }
-                catch (Exception e)
-                {
-                    var logger = loggerFactory.CreateLogger<Program>();
-                    logger.LogError(e, "向数据库Seed数据失败！");
+            ////向数据库添加数据
+            //using (var scope = host.Services.CreateScope())
+            //{
+            //    var services = scope.ServiceProvider;
+            //    var loggerFactory = services.GetRequiredService<ILoggerFactory>();
+            //    try
+            //    {
+            //        var myDBContext = services.GetRequiredService<MyDBContext>();
+            //        MyDBContextSeed.SeedAsync(myDBContext, loggerFactory).Wait();
+            //    }
+            //    catch (Exception e)
+            //    {
+            //        var logger = loggerFactory.CreateLogger<Program>();
+            //        logger.LogError(e, "向数据库Seed数据失败！");
 
-                    throw;
-                }
-            }
+            //        throw;
+            //    }
+            //}
 
             host.Run();
         }

@@ -16,7 +16,7 @@ using Newtonsoft.Json.Serialization;
 
 namespace BlogDemo.Api.Controllers
 {
-    [Route("api/Banners")]
+    [Route("api/[controller]/[action]")]
     public class BannerController : Controller
     {
         private readonly IBannerRepository _bannerRepository;

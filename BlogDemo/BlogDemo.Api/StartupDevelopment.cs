@@ -33,11 +33,12 @@ namespace BlogDemo.Api
           
             services.AddMvc();//启用MVC服务
             //注册Swagger
-            //services.AddSwaggerGen(c => {
-            //    c.SwaggerDoc("v1", new Info { Title = "DemoAPI", Version = "v1"});
-            //    //添加xml文件
-            //    c.IncludeXmlComments(Path.Combine(Directory.GetCurrentDirectory(), "Api.xml"));
-            //});
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "DemoAPI", Version = "v1" });
+                //添加xml文件
+                //c.IncludeXmlComments(Path.Combine(Directory.GetCurrentDirectory(), "Api.xml"));
+            });
 
             var connectionString = Configuration.GetConnectionString("DefaultConnection");  
             services.AddDbContext<MyDBContext>(options => options.UseSqlServer(connectionString));
@@ -75,17 +76,20 @@ namespace BlogDemo.Api
         }
         public void Configure(IApplicationBuilder app)
         {
+            //启用Swagger
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("swagger/v1/swagger.json", "DemoAPI V1");
+                //加载汉化的js文件，注意 swagger.js文件属性必须设置为“嵌入的资源”。
+                c.InjectJavascript("/Scripts/swagger.js");
+            });
+            app.UseSwagger();
             app.UseDeveloperExceptionPage();
             app.UseMvc();
             //app.UseHttpsRedirection(); //启用https
 
-            //启用Swagger
-            //app.UseSwagger();
-            //app.UseSwaggerUI(c=> {
-            //    c.SwaggerEndpoint("swagger/v1/swagger.json","DemoAPI V1");
-            //    //加载汉化的js文件，注意 swagger.js文件属性必须设置为“嵌入的资源”。
-            //    c.InjectJavascript("/Scripts/swagger.js");
-            //});
+            
         }
     }
 }
