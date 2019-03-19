@@ -11,6 +11,7 @@ namespace BlogDemo.Core.Entities
         public string Url { get; set; }
         public DateTime? AddTime { get; set; }
         public string Remark { get; set; }
+      
 
     }
 }

@@ -37,7 +37,15 @@ namespace BlogDemo.Infrastructure.Imp
         {
             if (banner != null)
             {
-                var bannerModel = new Banner() { Image = banner.Image, Url = banner.Url, AddTime = banner.AddTime, Remark = banner.Remark };
+                var bannerModel = new Banner()
+                {
+                    Image = banner.Image,
+                    Url = banner.Url,
+                    AddTime = banner.AddTime,
+                    Remark = banner.Remark,
+                    CreatorName = "admin",
+                    CreatorTime = DateTime.Now
+                };
                 _db.Banner.Add(bannerModel);
             }
             
@@ -55,6 +63,8 @@ namespace BlogDemo.Infrastructure.Imp
                 editBanner.Url = banner.Url;
                 editBanner.AddTime = DateTime.Now;
                 editBanner.Remark = banner.Remark;
+                editBanner.UpdateName = "admin";
+                editBanner.UpdateTime = DateTime.Now;
                 _db.Banner.Update(editBanner);
             }
            
@@ -66,7 +76,7 @@ namespace BlogDemo.Infrastructure.Imp
         /// <returns></returns>
         public async Task<PaginatedList<Banner>> GetPagingBanners(BannerQueryParameters bannerQueryParameters)
         {
-            var qureyBanner = _db.Banner.AsQueryable();
+            var qureyBanner = _db.Banner.Where(x => x.State != 1).AsQueryable();
             if (!string.IsNullOrEmpty(bannerQueryParameters.Image))
             {
                 qureyBanner =  qureyBanner.Where(x => x.Image.ToLowerInvariant() == bannerQueryParameters.Image.ToLowerInvariant());
@@ -89,7 +99,7 @@ namespace BlogDemo.Infrastructure.Imp
         /// <returns></returns>
         public async Task<IEnumerable<Banner>> GetAllBanners()
         {
-            return await _db.Banner.OrderByDescending(x=>x.AddTime).ToListAsync();
+            return await _db.Banner.Where(x=>x.State!=1).OrderByDescending(x=>x.AddTime).ToListAsync();
         }
         
         /// <summary>
@@ -99,7 +109,7 @@ namespace BlogDemo.Infrastructure.Imp
         /// <returns></returns>
         public async Task<Banner> GetBannerByIdAsync(int id)
         {
-            return await _db.Banner.FindAsync(id);
+            return await _db.Banner.Where(x=>x.State!=1).FirstOrDefaultAsync(x=>x.Id == id);
 
         }
         /// <summary>
@@ -111,7 +121,8 @@ namespace BlogDemo.Infrastructure.Imp
             var delBanner = _db.Banner.Find(id);
             if (delBanner != null)
             {
-                _db.Banner.Remove(delBanner);
+                delBanner.State = 1;
+                _db.Banner.Update(delBanner);
             }
             
         }
@@ -123,7 +134,7 @@ namespace BlogDemo.Infrastructure.Imp
 
         public async Task<Banner> GetSearchOneBanner(Expression<Func<Banner, bool>> where)
         {
-            return await _db.Banner.FirstOrDefaultAsync(where);
+            return await _db.Banner.Where(x=>x.State!=1).FirstOrDefaultAsync(where);
         }
     }
 }

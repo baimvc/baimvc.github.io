@@ -39,7 +39,13 @@ namespace BlogDemo.Core
     /// Guid 类型主键实体基类
     /// </summary>
     public abstract class EntityBase : EntityBase<int>
-    { }
+    {
+        public int State { get; set; }
+        public string CreatorName { get; set; }
+        public DateTime? CreatorTime { get; set; }
+        public string UpdateName { get; set; }
+        public DateTime? UpdateTime { get; set; }
+    }
 
     #endregion
 }

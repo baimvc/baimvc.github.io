@@ -43,7 +43,9 @@ namespace BlogDemo.Infrastructure.Imp
                     AddTime = DateTime.Now,
                     NewsId = addComment.NewsId,
                     Contents = addComment.Contents,
-                    Remark = addComment.Remark
+                    Remark = addComment.Remark,
+                    CreatorName = "admin",
+                    CreatorTime = DateTime.Now
 
                 };
                 _db.NewsComment.Add(com);
@@ -80,7 +82,8 @@ namespace BlogDemo.Infrastructure.Imp
             var comm = _db.NewsComment.Find(id);
             if (comm != null)
             {
-                _db.NewsComment.Remove(comm);
+                comm.State = 1;
+                _db.NewsComment.Update(comm);
             }
         }
         /// <summary>
@@ -88,9 +91,9 @@ namespace BlogDemo.Infrastructure.Imp
         /// </summary>
         /// <param name="where"></param>
         /// <returns></returns>
-        public  List<NewsCommentModel> GetCommentList(Expression<Func<NewsComment, bool>> where)
+        public List<NewsCommentModel> GetCommentList(Expression<Func<NewsComment, bool>> where)
         {
-            var comments =  _db.NewsComment.Include("News").Where(where).OrderByDescending(x => x.AddTime).ToList();
+            var comments = _db.NewsComment.Where(x=>x.State!=1).Include("News").Where(where).OrderByDescending(x => x.AddTime).ToList();
             List<NewsCommentModel> commentsList = new List<NewsCommentModel>();
 
             if (comments != null)
@@ -105,14 +108,14 @@ namespace BlogDemo.Infrastructure.Imp
                         Contents = com.Contents,
                         AddTime = com.AddTime,
                         Remark = com.Remark,
-                        Floor ="#"+floor
+                        Floor = "#" + floor
                     });
                     floor++;
                 }
 
             }
             commentsList.Reverse();
-            return  commentsList;
+            return commentsList;
         }
     }
 }

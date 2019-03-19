@@ -31,12 +31,12 @@ namespace BlogDemo.Infrastructure.Imp
 
         public async Task<IEnumerable<News>> GetAllNews()
         {
-            return await _db.News.Include("NewsClassify").Include("NewsComment").OrderByDescending(x => x.PublishDate).ToListAsync();
+            return await _db.News.Where(x=>x.State!=1).Include("NewsClassify").Include("NewsComment").OrderByDescending(x => x.PublishDate).ToListAsync();
         }
 
         public async Task<PaginatedList<News>> GetPagingNews(NewsQueryParameters newsQueryParameters)
         {
-            var qureyNews = _db.News.Include("NewsClassify").Include("NewsComment").AsQueryable();
+            var qureyNews = _db.News.Where(x => x.State != 1).Include("NewsClassify").Include("NewsComment").AsQueryable();
             if (!string.IsNullOrEmpty(newsQueryParameters.Title))
             {
                 qureyNews = qureyNews.Where(x => x.Title.ToLowerInvariant() == newsQueryParameters.Title.ToLowerInvariant());
@@ -55,7 +55,7 @@ namespace BlogDemo.Infrastructure.Imp
 
         public async Task<News> GetSearchOneNews(Expression<Func<News, bool>> where)
         {
-            var news =  _db.News.Include("NewsClassify").Include("NewsComment").FirstOrDefaultAsync(where);
+            var news =  _db.News.Where(x => x.State != 1).Include("NewsClassify").Include("NewsComment").FirstOrDefaultAsync(where);
 
             return await news;
         }
@@ -72,7 +72,9 @@ namespace BlogDemo.Infrastructure.Imp
                     Image = news.Image,
                     Contents = news.Contents,
                     PublishDate = DateTime.Now,
-                    Remark = news.Remark
+                    Remark = news.Remark,
+                     CreatorName = "admin",
+                      CreatorTime = DateTime.Now
                 };
                 _db.News.Add(n);
              
@@ -86,7 +88,8 @@ namespace BlogDemo.Infrastructure.Imp
             var delNews = _db.News.Find(id);
             if (delNews != null)
             {
-                _db.News.Remove(delNews);
+                delNews.State = 1;
+                _db.News.Update(delNews);
             }
         }
 
@@ -101,6 +104,9 @@ namespace BlogDemo.Infrastructure.Imp
                 editNewsModel.PublishDate = DateTime.Now;
                 editNewsModel.Contents = editNews.Contents;
                 editNewsModel.Remark = editNews.Remark;
+                editNewsModel.UpdateName = "admin";
+                editNewsModel.UpdateTime = DateTime.Now;
+
                 _db.News.Update(editNewsModel);
             }
         }
@@ -112,13 +118,13 @@ namespace BlogDemo.Infrastructure.Imp
         /// <returns></returns>
         public  List<NewsResources> GetNewsCommentNewsList(Expression<Func<News, bool>> where, int topCount)
         {
-            var newsIds = _db.NewsComment.OrderByDescending(x => x.AddTime).GroupBy(x => x.NewsId)
+            var newsIds = _db.NewsComment.Where(x=>x.State!=1).OrderByDescending(x => x.AddTime).GroupBy(x => x.NewsId)
                 .Select(x => x.Key)
                 .Take(topCount);
             var newsListResources = new List<NewsResources>();
             if (newsIds != null)
             {
-                var newsList = _db.News.Include("NewsClassify").Include("NewsComment").Where(x => newsIds.Contains(x.Id))
+                var newsList = _db.News.Where(x => x.State != 1).Include("NewsClassify").Include("NewsComment").Where(x => newsIds.Contains(x.Id))
                .OrderByDescending(x => x.PublishDate);
                
                 if (newsList != null)
@@ -151,11 +157,11 @@ namespace BlogDemo.Infrastructure.Imp
         /// <returns></returns>
         public async Task<List<NewsResources>> GetNewsRepositoryList(int newsId)
         {
-            var news = await _db.News.FirstOrDefaultAsync(x => x.Id == newsId);
+            var news = await _db.News.Where(x => x.State != 1).FirstOrDefaultAsync(x => x.Id == newsId);
             var newsListResources = new List<NewsResources>();
             if (news != null)
             {
-                var newsList = await _db.News.Include("NewsComment")
+                var newsList = await _db.News.Where(x => x.State != 1).Include("NewsComment")
                     .Where(x => x.NewsClassifyId == news.NewsClassifyId && x.Id != newsId)
                     .OrderByDescending(x => x.PublishDate).OrderByDescending(x => x.NewsComment.Count).Take(6).ToListAsync();
                 if (newsList != null)

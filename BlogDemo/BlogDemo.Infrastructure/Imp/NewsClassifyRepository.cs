@@ -31,7 +31,7 @@ namespace BlogDemo.Infrastructure.Imp
       
         public async Task<PaginatedList<NewsClassify>> GetPagingNewsClassify(NewsClassifyQueryParameters newsClassifyQueryParameters)
         {
-            var qureyNewsClassify = _db.NewsClassify.AsQueryable();
+            var qureyNewsClassify = _db.NewsClassify.Where(x=>x.State!=1).AsQueryable();
             if (!string.IsNullOrEmpty(newsClassifyQueryParameters.Name))
             {
                 qureyNewsClassify = qureyNewsClassify.Where(x => x.Name.ToLowerInvariant() == newsClassifyQueryParameters.Name.ToLowerInvariant());
@@ -50,19 +50,26 @@ namespace BlogDemo.Infrastructure.Imp
 
         public async Task<IEnumerable<NewsClassify>> GetAllNewsClassifys()
         {
-            return await _db.NewsClassify.OrderByDescending(x=>x.Sort).ToListAsync();
+            return await _db.NewsClassify.Where(x=>x.State!=1).OrderByDescending(x=>x.Sort).ToListAsync();
         }
         
 
         public async Task<NewsClassify> GetSearchOneNewsClassify(Expression<Func<NewsClassify, bool>> where)
         {
-            return await _db.NewsClassify.FirstOrDefaultAsync(where);
+            return await _db.NewsClassify.Where(x=>x.State!=1).FirstOrDefaultAsync(where);
         }
         public void AddNewsClassify(AddNewsClassify newsClassify)
         {
             if (newsClassify != null)
             {
-                var newsClassifyModel = new NewsClassify() { Name = newsClassify.Name, Sort = newsClassify.Sort, Remark = newsClassify.Remark };
+                var newsClassifyModel = new NewsClassify()
+                {
+                    Name = newsClassify.Name,
+                    Sort = newsClassify.Sort,
+                    Remark = newsClassify.Remark,
+                     CreatorName = "admin",
+                      CreatorTime = DateTime.Now
+                };
 
                 _db.NewsClassify.Add(newsClassifyModel);
             }
@@ -72,7 +79,12 @@ namespace BlogDemo.Infrastructure.Imp
         public void DeleteNewsClassifyById(int id)
         {
             var delNewsClassify = _db.NewsClassify.Find(id);
-            _db.NewsClassify.Remove(delNewsClassify);
+            if (delNewsClassify != null)
+            {
+                delNewsClassify.State = 1;
+                _db.NewsClassify.Update(delNewsClassify);
+            }
+            
         }
        
         public void EditNewsClassify(EditNewsClassify newsClassify)
@@ -83,7 +95,9 @@ namespace BlogDemo.Infrastructure.Imp
                 editEditNewsClassify.Name = newsClassify.Name;
                 editEditNewsClassify.Sort = newsClassify.Sort;
                 editEditNewsClassify.Remark = newsClassify.Remark;
-                
+                editEditNewsClassify.UpdateName = "admin";
+                editEditNewsClassify.UpdateTime = DateTime.Now;
+
                 _db.NewsClassify.Update(editEditNewsClassify);
             }
         }
