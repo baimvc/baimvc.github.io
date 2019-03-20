@@ -45,6 +45,7 @@ namespace BlogDemo.Api.Controllers
         /// 获取全部主题数据
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
         public async Task<IActionResult> GetAllBanners()
         {
             var bannerList = await _bannerRepository.GetAllBanners();

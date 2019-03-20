@@ -1,18 +1,12 @@
-﻿{
+{
   "profiles": {
     "BlogDemo.Api": {
       "commandName": "Project",
-      "launchBrowser": true, //默认打开浏览器
-      //"launchUrl": "http://localhost:5001/api/Home", //默认地址
-      "applicationUrl": "http://localhost:5000",
+      "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+      },
+      "applicationUrl": "http://localhost:5021"
     }
-
   }
- 
-   
-  
-
 }

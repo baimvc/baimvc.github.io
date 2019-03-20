@@ -65,9 +65,12 @@ namespace BlogDemo.Infrastructure.Imp
             {
                 commentResources = new NewsCommentModel()
                 {
-                    Contents = comment.Contents,
-                    Floor = "" + comment.NewsComment.Count + 1,
-                    AddTime = DateTime.Now
+                    Contents = comment.NewsComment.Where(x=>x.State!=1)
+                    .FirstOrDefault(x=>x.NewsId == newsId).Contents,
+                    Floor = "#" + comment.NewsComment.Where(x => x.State != 1)
+                    .Count(),
+                    AddTime = comment.NewsComment.Where(x => x.State != 1)
+                    .FirstOrDefault(x => x.NewsId == newsId).AddTime
                 };
             }
             return commentResources;

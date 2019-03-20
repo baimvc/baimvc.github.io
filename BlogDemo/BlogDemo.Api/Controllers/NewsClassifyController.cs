@@ -44,6 +44,7 @@ namespace BlogDemo.Api.Controllers
         /// 获取全部主题数据
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
         public async Task<IActionResult> GetAllNewsClassify()
         {
             var newsClassifyList = await _newsClassifyRepository.GetAllNewsClassifys();

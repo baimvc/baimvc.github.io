@@ -22,9 +22,13 @@ namespace BlogDemo.Infrastructure.Resources
                 [nameof(BannerResources.Url)] = new List<MappedProperty>
                 {
                     new MappedProperty{ Name = nameof(Banner.Url), Revert = false}
+                },
+                [nameof(BannerResources.AddTime)] = new List<MappedProperty>
+                {
+                    new MappedProperty{ Name = nameof(Banner.AddTime), Revert = false}
                 }
-                
-                
+
+
             })
         {
 

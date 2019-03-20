@@ -42,6 +42,7 @@ namespace BlogDemo.Api.Controllers
         /// 获取全部新闻数据
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
         public async Task<IActionResult> GetAllNews()
         {
             var NewsList = await _newsRepository.GetAllNews();

@@ -1,0 +1,114 @@
+﻿@{
+    ViewBag.Title = "Bolg登录页面";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="@Url.Content("~/lib/plugins/css/login.css")" rel="stylesheet" media="all" type="text/css" />
+
+<div class="login-wrapper">
+    <div class="login-header">
+        <img src="~/lib/plugins/images/logo.png"> Blog
+    </div>
+    <div class=" login-body">
+        <div class="layui-card">
+            <div class="layui-card-header">
+                <i class="layui-icon layui-icon-engine"></i>&nbsp;&nbsp;系统登录
+            </div>
+            <div class="layui-card-body layui-form layui-form-pane">
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><i class="layui-icon layui-icon-username"></i></label>
+                    <div class="layui-input-block">
+                        <input name="uLoginName" type="text" lay-verify="required" placeholder="账号" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><i class="layui-icon layui-icon-password"></i></label>
+                    <div class="layui-input-block">
+                        <input name="uLoginPWD" type="password" lay-verify="required" placeholder="密码" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><i class="layui-icon layui-icon-vercode"></i></label>
+                    <div class="layui-input-block">
+                        <div class="layui-row inline-block">
+                            <div class="layui-col-xs7">
+                                <input name="VCode" type="text" lay-verify="required" placeholder="验证码" class="layui-input">
+                            </div>
+                            <div class="layui-col-xs5" style="padding-left: 10px;">
+                                <img class="login-captcha" src="../Login/ValidateCode">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    @*<input name="rememberMe" type="checkbox" />
+                        <label>记住账号</label>
+                        <a href="/forgpwd/toforgpwd.jhtml" style="float:right;margin:10px 25px 0px 0px;height:10px;line-height:10px;font-size:14px;text-decoration:none;" class="forgot_pwd">忘记密码?</a>*@
+
+                </div>
+                <div class="layui-form-item">
+                    <button lay-filter="login-submit" class="layui-btn layui-btn-fluid" lay-submit>登 录</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="login-footer">
+        @*<p>© 2018 <a href="javascript:;" target="_blank">EasyWeb版权所有</a></p>
+            <p>
+                <span><a href="https://github.com/whvcse/EasyWeb" target="_blank">前往github</a></span>
+                <span><a href="https://gitee.com/whvse/EasyWeb" target="_blank">前往gitee</a></span>
+                <span><a href="javascript:;" target="_blank">文档说明</a></span>
+            </p>*@
+    </div>
+</div>
+<script>
+    layui.use(['jquery', 'form'], function () {
+        var $ = layui.jquery;
+        var form = layui.form;
+
+
+
+        // 表单提交
+        form.on('submit(login-submit)', function (obj) {
+            var code = $('.login-captcha').val();
+            console.log(code);
+            var field = obj.field;
+            console.log(field);
+            layer.load(2);
+            $.ajax({
+                url: '../Login/Login',
+                data: field,
+                type: 'POST',
+                dataType: 'JSON',
+                success: function (data) {
+                    console.log(JSON.stringify(data));
+                    if (data.state == "1") {
+                        //config.putToken(data);
+                        layer.msg('登录成功', { icon: 1 }, function () {
+                            location.replace('../Home/Index');
+                        });
+                    } else {
+                        layer.closeAll('loading');
+                        layer.msg(data.message, { icon: 5 });
+                        $('.login-captcha').trigger("click");
+                    }
+                },
+                error: function (xhr) {
+                    layer.closeAll('loading');
+                    if (xhr.status == 400) {
+                        layer.msg('登录失败', { icon: 5 });
+                    }
+                }
+            });
+        });
+
+        // 图形验证码
+        $('.login-captcha').click(function () {
+            this.src = this.src + '?t=' + (new Date).getTime();
+            console.log(this.src);
+        });
+    });
+
+
+
+
+</script>

@@ -11,7 +11,6 @@ namespace BlogDemo.Core.Request
         public string Title { get; set; }
         public string Image { get; set; }
         public string Contents { get; set; }
-        public DateTime? PublishDate { get; set; }
         public string Remark { get; set; }
       
     }

@@ -67,10 +67,11 @@ namespace BlogDemo.Api.Controllers
         /// </summary>
         /// <param name="newsId"></param>
         /// <returns></returns>
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetCommentByIdAsync(int newsId)
         {
             var newsCommentModel = await _newsCommentRepository.GetCommentById(newsId);
-           if(newsCommentModel!=null)
+           if(newsCommentModel.Id!=0)
                 return Ok(JsonNetHelper.SerializerToString(new ResponseModel { Code = 200, Reslut = "数据返回成功！",Data = newsCommentModel }));
             return Ok(JsonNetHelper.SerializerToString(new ResponseModel { Code = 0, Reslut = "数据返回失败！", Data = newsCommentModel }));
         }

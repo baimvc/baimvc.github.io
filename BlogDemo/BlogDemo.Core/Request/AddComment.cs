@@ -8,7 +8,6 @@ namespace BlogDemo.Core.Request
     {
         public int NewsId { get; set; }
         public string Contents { get; set; }
-        public DateTime? AddTime { get; set; }
         public string Remark { get; set; }
     }
 }
