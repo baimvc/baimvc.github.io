@@ -24,5 +24,7 @@ namespace BlogDemo.Infrastructure.Database
         public DbSet<News> News { get; set; }
         public DbSet<NewsClassify> NewsClassify { get; set; }
         public DbSet<NewsComment> NewsComment { get; set; }
+        public DbSet<SysMenu> SysMenu { get; set; }
+        public DbSet<SysUserInfo> SysUserInfo { get; set; }
     }
 }
