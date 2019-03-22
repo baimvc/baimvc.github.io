@@ -39,4 +39,5 @@ namespace BlogDemo.Infrastructure.Resources
         public string UpdateName { get; set; }
         public DateTime? UpdateTime { get; set; }
     }
+    #endregion
 }
