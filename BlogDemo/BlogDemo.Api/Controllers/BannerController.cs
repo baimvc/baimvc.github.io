@@ -9,6 +9,7 @@ using BlogDemo.Core.Request;
 using BlogDemo.Core.Response;
 using BlogDemo.Infrastructure.Database;
 using BlogDemo.Infrastructure.Resources;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -17,6 +18,7 @@ using Newtonsoft.Json.Serialization;
 namespace BlogDemo.Api.Controllers
 {
     [Route("api/[controller]/[action]")]
+    [Authorize]
     public class BannerController : Controller
     {
         private readonly IBannerRepository _bannerRepository;

@@ -19,6 +19,8 @@ using BlogDemo.Infrastructure.Services;
 using System.Reflection;
 using System;
 using System.Linq;
+using BlogDemo.Api.Options;
+using System.Collections.Generic;
 
 namespace BlogDemo.Api
 {
@@ -33,23 +35,49 @@ namespace BlogDemo.Api
         public void ConfigureServices(IServiceCollection services)
         {
 
-          
+
             services.AddMvc();//启用MVC服务
                               //注册Swagger
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "Blog API", Version = "v1" });
 
+                //向生成的Swagger添加一个或多个“securityDefinitions”，用于API的登录校验
+                c.AddSecurityDefinition("oauth2", new OAuth2Scheme
+                {
+                    Flow = "ResourceOwnerPassword", // 只需通过浏览器获取令牌（适用于swagger）
+                    AuthorizationUrl = "http://localhost:6000/connect/authorize",//获取登录授权接口
+                    Scopes = new Dictionary<string, string> {
+                        { "NewsClient2", "My API News Blog" }//指定客户端请求的api作用域。 如果为空，则客户端无法访问
+                    }
+                });
+
+                c.OperationFilter<AuthorizeCheckOperationFilter>(); // 添加IdentityServer4认证过滤
+
+
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
             });
-            //services.AddSwaggerGen(c =>
-            //{
-            //    c.SwaggerDoc("v1", new Info { Title = "DemoAPI", Version = "v1" });
-            //    //添加xml文件
-            //    //c.IncludeXmlComments(Path.Combine(Directory.GetCurrentDirectory(), "Api.xml"));
-            //});
+
+
+
+
+
+            services.AddMvcCore()//mvc并带验证
+           .AddAuthorization()
+           .AddJsonFormatters();
+            //注册IdentityServer
+            var identityServerOptions = new IdentityServerOptions();
+            Configuration.Bind("IdentityServerOptions", identityServerOptions);
+            services.AddAuthentication(identityServerOptions.IdentityScheme)
+                .AddIdentityServerAuthentication(options =>
+                {
+                    options.RequireHttpsMetadata = false; //是否启用https
+                    options.Authority = $"http://{identityServerOptions.ServerIP}:{identityServerOptions.ServerPort}";//配置授权认证的地址
+                    options.ApiName = identityServerOptions.ResourceName; //资源名称，跟认证服务中注册的资源列表名称中的apiResource一致
+                }
+                );
 
 
             var connectionString = Configuration.GetConnectionString("DefaultConnection");  
@@ -99,17 +127,14 @@ namespace BlogDemo.Api
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Blog API V1");
+                c.OAuthClientId("NewsClient2");//客服端名称
+                c.OAuthAppName("My API News Blog"); // 描述
                 //c.RoutePrefix = "";
             });
-            //app.UseSwagger();
-            //app.UseSwaggerUI(c =>
-            //{
-            //    c.SwaggerEndpoint("swagger/v1/swagger.json", "DemoAPI V1");
-            //    //加载汉化的js文件，注意 swagger.js文件属性必须设置为“嵌入的资源”。
-            //    c.InjectJavascript("/Scripts/swagger.js");
-            //});
+        
            
             app.UseDeveloperExceptionPage();
+            app.UseAuthentication();//添加验证
             app.UseMvc();
             //app.UseHttpsRedirection(); //启用https
 

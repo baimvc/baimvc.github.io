@@ -2,9 +2,11 @@
 using BlogDemo.Core.Interface;
 using BlogDemo.Infrastructure.Database;
 using BlogDemo.Infrastructure.Services;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace BlogDemo.Infrastructure.Imp
 {
@@ -12,6 +14,10 @@ namespace BlogDemo.Infrastructure.Imp
     {
         private readonly MyDBContext _db;
         private readonly IPropertyMappingContainer _propertyMappingContainer;
+
+        public SysUserInfoRepository()
+        {
+        }
 
         public SysUserInfoRepository(
             MyDBContext db,
@@ -22,15 +28,16 @@ namespace BlogDemo.Infrastructure.Imp
             _propertyMappingContainer = propertyMappingContainer;
         }
         /// <summary>
-        /// 判断用户是否登录
+        /// 根据帐户名、密码获取用户实体信息
         /// </summary>
-        /// <param name="where"></param>
+        /// <param name="account">账户名</param>
+        /// <param name="password">密码</param>
         /// <returns></returns>
-        public SysUserInfo GetLoginOn(Expression<Func<SysUserInfo, bool>> where)
+        public async Task<SysUserInfo> GetUserForLoginAsync(string account, string password)
         {
-            return _db.SysUserInfo.Where(where).FirstOrDefault();
+            return await _db.SysUserInfo.Where(x => x.Account == account&&x.Password == password).FirstOrDefaultAsync();
         }
-       
+
 
     }
 }

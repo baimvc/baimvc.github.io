@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogDemo.Infrastructure", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogDemo.Web", "BlogDemo.Web\BlogDemo.Web.csproj", "{A2DBCB4C-8EEA-48C8-ABD1-47ED203A77FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blog.Demo.Util", "Blog.Demo.Util\Blog.Demo.Util.csproj", "{F19063E2-5410-43AB-B981-1B6ED0593B22}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.Demo.Util", "Blog.Demo.Util\Blog.Demo.Util.csproj", "{F19063E2-5410-43AB-B981-1B6ED0593B22}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickstartIdentityServer", "QuickstartIdentityServer\QuickstartIdentityServer.csproj", "{11FB8CCF-1BDD-42C7-8323-A1A3C351FA26}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{F19063E2-5410-43AB-B981-1B6ED0593B22}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F19063E2-5410-43AB-B981-1B6ED0593B22}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F19063E2-5410-43AB-B981-1B6ED0593B22}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11FB8CCF-1BDD-42C7-8323-A1A3C351FA26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11FB8CCF-1BDD-42C7-8323-A1A3C351FA26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11FB8CCF-1BDD-42C7-8323-A1A3C351FA26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11FB8CCF-1BDD-42C7-8323-A1A3C351FA26}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

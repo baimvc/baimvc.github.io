@@ -6,6 +6,7 @@ using AutoMapper;
 using BlogDemo.Core.Interface;
 using BlogDemo.Core.Request;
 using BlogDemo.Core.Response;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -14,6 +15,7 @@ using Microsoft.Extensions.Logging;
 namespace BlogDemo.Api.Controllers
 {
     [Route("api/[controller]/[action]")]
+    [Authorize]
     public class NewsCommentController : Controller
     {
         private readonly INewsCommentRepository _newsCommentRepository;

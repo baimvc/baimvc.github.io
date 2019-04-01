@@ -2,18 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BlogDemo.Core.Entities
+namespace Blog.Demo.Application.Authorization.Secret.Dto
 {
-    public class SysUserInfo 
+    public class SecretDto
     {
-        public Guid Id { get; set; }
         /// <summary>
-        /// 姓名
-        /// </summary>
-        public string Name { get; set; }
-
-        /// <summary>
-        /// 账户
+        /// 账号名
         /// </summary>
         public string Account { get; set; }
 
@@ -23,9 +17,9 @@ namespace BlogDemo.Core.Entities
         public string Password { get; set; }
 
         /// <summary>
-        /// 加密参数
+        /// 登录后授权的 Token
         /// </summary>
-        public Guid Salt { get; set; }
+        public string Token { get; set; }
 
     }
 }
