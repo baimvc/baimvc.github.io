@@ -41,6 +41,7 @@ namespace QuickstartIdentityServer
                     AllowAccessTokensViaBrowser = true,//是否通过浏览器为此客户端传输访问令牌
                     RedirectUris =
                     {
+
                         "http://localhost:6001/swagger/oauth2-redirect.html"
                     },
                     ClientSecrets =
@@ -56,7 +57,7 @@ namespace QuickstartIdentityServer
                     ClientId = "NewsClient2",
                     ClientName = "My API News Blog",//描述
                     AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
-                    AccessTokenLifetime = 20,//20秒过期
+                    AccessTokenLifetime = 30,//70秒过期
                     AllowAccessTokensViaBrowser = true,//是否通过浏览器为此客户端传输访问令牌
                     RedirectUris =
                     {

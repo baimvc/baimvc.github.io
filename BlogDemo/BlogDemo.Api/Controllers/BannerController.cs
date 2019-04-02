@@ -19,7 +19,7 @@ namespace BlogDemo.Api.Controllers
 {
     [Route("api/[controller]/[action]")]
     [Authorize]
-    public class BannerController : Controller
+    public class BannerController : ControllerBase
     {
         private readonly IBannerRepository _bannerRepository;
         //工作单元模式

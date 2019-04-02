@@ -31,7 +31,7 @@ namespace QuickstartIdentityServer
             {
                 app.UseDeveloperExceptionPage();
             }
-
+           
             app.UseIdentityServer();
         }
     }

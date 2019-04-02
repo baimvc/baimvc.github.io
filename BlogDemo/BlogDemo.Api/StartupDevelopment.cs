@@ -1,10 +1,8 @@
 ﻿using BlogDemo.Infrastructure.Database;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Hosting;
 using BlogDemo.Core.Interface;
 using BlogDemo.Infrastructure.Imp;
 using AutoMapper;
@@ -26,7 +24,9 @@ namespace BlogDemo.Api
 {
     public class StartupDevelopment
     {
-       public static IConfiguration Configuration { get; set; }
+     
+
+        public static IConfiguration Configuration { get; set; }
         public StartupDevelopment(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -35,9 +35,34 @@ namespace BlogDemo.Api
         public void ConfigureServices(IServiceCollection services)
         {
 
-
             services.AddMvc();//启用MVC服务
-                              //注册Swagger
+         
+            services.AddMvcCore()
+           .AddAuthorization()
+           .AddJsonFormatters();
+
+            //services.AddAuthentication("Bearer")
+            //    .AddJwtBearer("Bearer", options =>
+            //    {
+            //        options.Authority = "http://127.0.0.1:6000";
+            //        options.RequireHttpsMetadata = false;
+
+            //        options.Audience = "ApiNews";
+            //    });
+            var identityServerOptions = new IdentityServerOptions();
+            Configuration.Bind("IdentityServerOptions", identityServerOptions);
+            services.AddAuthentication(identityServerOptions.IdentityScheme)
+                .AddIdentityServerAuthentication(options =>
+                {
+
+                    options.RequireHttpsMetadata = false; //是否启用https
+                    options.Authority = $"http://{identityServerOptions.ServerIP}:{identityServerOptions.ServerPort}";//配置授权认证的地址
+                    options.ApiName = identityServerOptions.ResourceName; //资源名称，跟认证服务中注册的资源列表名称中的apiResource一致
+                }
+                );
+        
+
+            //注册Swagger
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "Blog API", Version = "v1" });
@@ -46,7 +71,7 @@ namespace BlogDemo.Api
                 c.AddSecurityDefinition("oauth2", new OAuth2Scheme
                 {
                     Flow = "ResourceOwnerPassword", // 只需通过浏览器获取令牌（适用于swagger）
-                    AuthorizationUrl = "http://localhost:6000/connect/authorize",//获取登录授权接口
+                    AuthorizationUrl = $"http://{identityServerOptions.ServerIP}:{identityServerOptions.ServerPort}"+"/connect/authorize",//获取登录授权接口
                     Scopes = new Dictionary<string, string> {
                         { "NewsClient2", "My API News Blog" }//指定客户端请求的api作用域。 如果为空，则客户端无法访问
                     }
@@ -59,26 +84,6 @@ namespace BlogDemo.Api
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
             });
-
-
-
-
-
-            services.AddMvcCore()//mvc并带验证
-           .AddAuthorization()
-           .AddJsonFormatters();
-            //注册IdentityServer
-            var identityServerOptions = new IdentityServerOptions();
-            Configuration.Bind("IdentityServerOptions", identityServerOptions);
-            services.AddAuthentication(identityServerOptions.IdentityScheme)
-                .AddIdentityServerAuthentication(options =>
-                {
-                    options.RequireHttpsMetadata = false; //是否启用https
-                    options.Authority = $"http://{identityServerOptions.ServerIP}:{identityServerOptions.ServerPort}";//配置授权认证的地址
-                    options.ApiName = identityServerOptions.ResourceName; //资源名称，跟认证服务中注册的资源列表名称中的apiResource一致
-                }
-                );
-
 
             var connectionString = Configuration.GetConnectionString("DefaultConnection");  
             services.AddDbContext<MyDBContext>(options => options.UseSqlServer(connectionString));
@@ -129,12 +134,13 @@ namespace BlogDemo.Api
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Blog API V1");
                 c.OAuthClientId("NewsClient2");//客服端名称
                 c.OAuthAppName("My API News Blog"); // 描述
-                //c.RoutePrefix = "";
+                c.RoutePrefix = string.Empty;
             });
         
            
             app.UseDeveloperExceptionPage();
             app.UseAuthentication();//添加验证
+            
             app.UseMvc();
             //app.UseHttpsRedirection(); //启用https
 

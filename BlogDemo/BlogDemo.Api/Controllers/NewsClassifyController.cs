@@ -18,7 +18,7 @@ namespace BlogDemo.Api.Controllers
 {
     [Route("api/[controller]/[action]")]
    [Authorize]
-    public class NewsClassifyController : Controller
+    public class NewsClassifyController : ControllerBase
     {
         private readonly INewsClassifyRepository _newsClassifyRepository;
         //工作单元模式
