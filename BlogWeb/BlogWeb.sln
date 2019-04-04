@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2003
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogWeb.UI", "BlogWeb.UI\BlogWeb.UI.csproj", "{0FCF4B21-7146-4141-ADDD-89E437DCDD3F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogWeb.UI", "BlogWeb.UI\BlogWeb.UI.csproj", "{0FCF4B21-7146-4141-ADDD-89E437DCDD3F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogWeb.Infrastructure", "BlogWeb.Infrastructure\BlogWeb.Infrastructure.csproj", "{DCC356CD-6EB3-43A5-9031-5EBE01BD488E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogWeb.Infrastructure", "BlogWeb.Infrastructure\BlogWeb.Infrastructure.csproj", "{DCC356CD-6EB3-43A5-9031-5EBE01BD488E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blog.Web.ApplicationCore", "Blog.Web.ApplicationCore\Blog.Web.ApplicationCore.csproj", "{3E583D8D-9F78-4921-A60F-4988FF07123E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.Web.ApplicationCore", "Blog.Web.ApplicationCore\Blog.Web.ApplicationCore.csproj", "{3E583D8D-9F78-4921-A60F-4988FF07123E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
