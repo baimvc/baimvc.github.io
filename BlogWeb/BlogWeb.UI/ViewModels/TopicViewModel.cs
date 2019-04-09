@@ -12,6 +12,9 @@ namespace BlogWeb.UI.ViewModels
         public int NodeId { get; set; }
         public string NodeName { get; set; }
         public string UserName { get; set; }
+        /// <summary>
+        /// 头像
+        /// </summary>
         public string Avatar { get; set; }
         public string Title { get; set; }
         public int Top { get; set; }

@@ -30,7 +30,7 @@ namespace BlogWeb.UI
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             //连接数据库
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<DataContext>(options => options.UseMySql(connectionString));
+            services.AddDbContext<DataContext>(options => options.UseSqlServer(connectionString));
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
