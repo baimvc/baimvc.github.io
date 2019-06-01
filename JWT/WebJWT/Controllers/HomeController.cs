@@ -26,7 +26,7 @@ namespace WebJWT.Controllers
             //AES加密
             var payloadDic = new Dictionary<string, object> {
                 { "name","byf"},
-                { "password","@byf1025"},
+                { "password","@777"},
                 { "content","登录信息"},
             };
             string str = JsonConvert.SerializeObject(payloadDic, Formatting.Indented); 
