@@ -1,0 +1,12 @@
+﻿
+@{
+    ViewBag.Title = "JwtByToken";
+}
+
+<h2>JwtByToken</h2>
+
+<textarea name="reworkmes" cols="40" rows="4">@ViewBag.token</textarea>
+@Html.ActionLink("请求token", "GetTokenByContent",new { ViewBag.token });
+@*<input type="hidden" id="currentUsername" value="@Request.Params["byMsg"]" />*@
+<h3 style="color:red">@Request.Params["byMsg"]</h3>
+
